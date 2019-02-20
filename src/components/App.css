@@ -1,0 +1,15 @@
+.App {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.list {
+  list-style-type: none;
+  margin: 0 auto;
+  padding: 0;
+  max-width: 1300px;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}

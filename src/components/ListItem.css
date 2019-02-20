@@ -1,0 +1,63 @@
+.list-item {
+    border: 1px solid rgb(40,40,40);
+    border-radius: 4px;
+    width: 100%;
+    max-width: 400px;
+    margin: 10px auto;
+    text-align: left;
+    padding: 5px 5px 25px;
+}
+
+.item {
+    margin: 0 auto 10px;
+    padding: 5px;
+    border-radius: 3px;
+    color: rgb(255, 255, 255);
+}
+
+.item-name {
+    font-weight: 700;
+}
+
+.item-table {
+    width: 100%;
+}
+
+.item-data {
+    font-weight: 700;
+}
+
+.time-bar {
+    width: 100%;
+    border-radius: 4px;
+    height: 6vh;
+    color: rgb(255, 255, 255);
+}
+
+.total-time {
+    display: flex;
+    width: 100%;
+}
+
+.veg-time {
+    background-color: rgb(90, 153, 225);
+    width: 35%;
+    padding: 5px;
+    height: 3vh;
+}
+
+.flower-time {
+    background-color: rgba(244, 146, 66, 0.8);
+    width: 65%;
+    padding: 5px;
+    height: 3vh;
+}
+
+.grow-time {
+    background-color: rgb(50, 50, 50);
+    width: 42%;
+    padding: 5px;
+    height: 3vh;
+    border-radius: 0 0 2px 2px;
+}
+

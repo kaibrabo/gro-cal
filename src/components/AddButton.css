@@ -1,0 +1,22 @@
+.button-container {
+}
+
+.add-button {
+    margin: 20px auto 20px;
+    background-color: #4CAF50; /* Green */
+    border: none;
+    border-radius: 3px;
+    color: white;
+    padding: 10px 24px;
+    text-align: center;
+    outline: none;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 700;
+    width: 200px;
+}
+
+.add-button:active {
+    background-color: green;
+}
+
