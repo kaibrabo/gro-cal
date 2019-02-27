@@ -1,38 +1,79 @@
-import React, { Component } from 'react';
-import Header from './Header';
-import AddPlant from './AddPlant';
-// import List from './List';
-import ListItem from './ListItem';
-import './App.css';
+import React, { Component } from "react";
+import firebase from "../firebase";
+import Header from "./Header";
+import AddPlant from "./AddPlant";
+import ListItem from "./ListItem";
+import "./App.css";
 
 class App extends Component {
-  constructor(props) {
-    super(props);
+    constructor(props) {
+        super(props);
 
-    this.state = {
-      strains: [
-        {name: 'GDP', type: 'indica', flower: 65},
-        {name: 'Sour Diesel', type: 'sativa', flower: 60},
-        {name: 'Girl Scout Cookies', type: 'hybrid', flower: 63},
-      ],
-    };
-  }
+        this.state = {
+            plants: []
+        };
 
-  render() {
-    return (
-      <div className="App">
-        <Header />
-        <AddPlant />
-        <ul className="list">
-          {this.state.strains.map((strain, index) => 
-            <ListItem 
-              key={index} name={strain.name} type={strain.type} flower={strain.flower}
-            />
-          )}
-        </ul>
-      </div>
-    );
-  }
+        this.addPlant = this.addPlant.bind(this);
+    }
+
+    componentDidMount() {
+        const plantsRef = firebase.database().ref('plants');
+        plantsRef.on('value', (snapshot) => {
+            let plants = snapshot.val();
+            let newState = [];
+
+            for (let plant in plants) {
+                newState.push({
+                    id: plant,
+                    name: plants[plant].name,
+                    type: plants[plant].type,
+                    startVeg: plants[plant].startVeg,
+                    startFlower: plants[plant].startFlower,
+                    flowerTime: plants[plant].flowerTime
+                })
+            }
+
+            this.setState({
+                plants: newState
+            })
+        });
+    }
+
+    addPlant(plant) {
+        const plantsRef = firebase.database().ref('plants');
+        console.log(plant)
+        const newPlant = {
+            name: plant.name,
+            type: plant.type,
+            startVeg: plant.startVeg,
+            startFlower: plant.startFlower,
+            flowerTime: plant.flowerTime
+        }
+
+        plantsRef.push(newPlant);
+        this.setState({ plants: [plantsRef] });
+    }
+
+    render() {
+        return (
+            <div className="App">
+                <Header />
+                <AddPlant addPlant={this.addPlant} />
+                <ul className="list">
+                    {this.state.plants.map((plant, index) => (
+                        <ListItem
+                            key={index}
+                            name={plant.name}
+                            type={plant.type}
+                            startVeg={plant.startVeg}
+                            startFlower={plant.startFlower}
+                            flowerTime={plant.flowerTime}
+                        />
+                    ))}
+                </ul>
+            </div>
+        );
+    }
 }
 
 export default App;
