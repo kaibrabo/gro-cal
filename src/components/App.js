@@ -17,7 +17,9 @@ class App extends Component {
     }
 
     componentDidMount() {
+        // Retrieves plants object from firebase
         const plantsRef = firebase.database().ref('plants');
+
         plantsRef.on('value', (snapshot) => {
             let plants = snapshot.val();
             let newState = [];
@@ -54,6 +56,11 @@ class App extends Component {
         this.setState({ plants: [plantsRef] });
     }
 
+    removePlant(plantId) {
+        const plant = firebase.database().ref(`/plants/${plantId}`);
+        plant.remove();
+    }
+
     render() {
         return (
             <div className="App">
@@ -63,11 +70,13 @@ class App extends Component {
                     {this.state.plants.map((plant, index) => (
                         <ListItem
                             key={index}
+                            plantId={plant.id}
                             name={plant.name}
                             type={plant.type}
                             startVeg={plant.startVeg}
                             startFlower={plant.startFlower}
                             flowerTime={plant.flowerTime}
+                            removePlant={this.removePlant}
                         />
                     ))}
                 </ul>
