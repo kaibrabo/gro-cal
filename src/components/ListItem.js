@@ -4,9 +4,24 @@ import './ListItem.css';
 
 class ListItem extends Component {
 
+    // Date to "string" conversion
+    dateConvertToString(date) {
+        let year = date.getFullYear();
+        let month = date.getMonth() + 1;
+        let day = date.getDate();
+
+        month = month < 10 ? `0${month}` : month;
+        day = day < 10 ? `0${day}` : day;
+        
+        let newDate = `${year}-${month}-${day}`;
+        
+        return newDate;
+    }
+
     // date param = "string"
     // return "MM/DD/YYYY"
     dateFormat(date) {
+        // get an error from date when submitting new plant
         const dateArray = date.split('-');
         return `${dateArray[1]}/${dateArray[2]}/${dateArray[0].substr(2)}`;
     }
@@ -31,12 +46,16 @@ class ListItem extends Component {
         return newDate;
     }
 
+    // array of strings => array of ints
+    // ["YYYY", "MM", "DD"] => [YYYY, MM, DD]
     convertDateToIntArray(dateArray) {
         let newArray = dateArray.map(x => parseInt(x, 10));
         let newDate = new Date(newArray[0], newArray[1] - 1, newArray[2]);
         return newDate;
     }
 
+    // start/end = "YYYY-MM-DD" string
+    // returns "int"
     getDifferenceOfDays(start, end) {
         // https://stackoverflow.com/a/2627493/7704510
         const oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
@@ -44,14 +63,23 @@ class ListItem extends Component {
         const secondDate = new Date(end);
 
         let diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime())/(oneDay)));
+        
         if (diffDays < 10) {
             diffDays = `0${diffDays}`;
         }
+
+        diffDays = `${diffDays}`;
         return diffDays;
+    }
+
+    getPercent(val1, val2) {
+        let percent = `${Math.round((val2/val1) * 100)}%`;
+        return percent;
     }
 
     render() {
         let strainColor;
+        let today = new Date();
 
         // Displays strain.type label color
         switch (this.props.type) {
@@ -72,6 +100,60 @@ class ListItem extends Component {
             backgroundColor: strainColor
         };
 
+        const vegPercentage = this.getPercent(
+            this.getDifferenceOfDays(
+                this.props.startVeg, 
+                this.dateFormat(
+                    this.addDays(
+                        this.props.startFlower,
+                        this.props.flowerTime
+                    )
+                )
+            ),
+            this.getDifferenceOfDays(
+                this.props.startVeg,
+                this.props.startFlower
+            )
+        );
+
+        const flowerPercentage = this.getPercent(
+            this.getDifferenceOfDays(
+                this.props.startVeg, 
+                this.dateFormat(
+                    this.addDays(
+                        this.props.startFlower,
+                        this.props.flowerTime
+                    )
+                )
+            ),
+            this.props.flowerTime
+        );
+
+        const progressPercentage = this.getPercent(
+            this.getDifferenceOfDays(
+                this.props.startVeg, 
+                this.dateFormat(
+                    this.addDays(
+                        this.props.startFlower,
+                        this.props.flowerTime
+                    )
+                )
+            ),
+            this.getDifferenceOfDays(this.props.startVeg, this.dateConvertToString(today))
+        );
+
+        const vegPercent = {
+            width: vegPercentage
+        }
+        
+        const flowerPercent = {
+            width: flowerPercentage
+        }
+
+        const progressPercent = {
+            width: progressPercentage
+        }
+
         return (
                 <li className="list-item">
                     <div className="item" style={strainStyle}>
@@ -79,7 +161,7 @@ class ListItem extends Component {
                             <span className="item-name">
                                 { this.props.name + ' ' }  
                             </span>
-                            ({this.props.type}) - Day 30{}
+                            ({this.props.type.substr(0,1)}) - Day 30{}
                         </h3>
                     </div>
                     <div className="item-table">
@@ -123,10 +205,10 @@ class ListItem extends Component {
                     </div>
                     <div className="time-bar">
                         <div className="total-time">
-                            <div className="veg-time">Veg</div>
-                            <div className="flower-time">Flower</div>
+                            <div className="veg-time" style={vegPercent}>{vegPercentage} Veg</div>
+                            <div className="flower-time" style={flowerPercent}>{flowerPercentage} Flower</div>
                         </div>
-                        <div className="grow-time">Progress</div>
+                        <div className="grow-time" style={progressPercent}>{progressPercentage} Progress</div>
                     </div>
                     <RemoveButton removePlant={() => this.props.removePlant(this.props.plantId)} />     
                 </li>

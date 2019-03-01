@@ -85,16 +85,6 @@ class AddPlant extends Component {
                                            onChange={this.handleInputChange} required/>
                                 </td>
                             </tr>
-                            <tr>
-                                <td className="input-title">
-                                    <label>
-                                        est. harvest:
-                                    </label>
-                                </td>
-                                <td className="input-field">
-                                    {/* Harvest = StartFlowering date + FlowerTime days */}
-                                </td>
-                            </tr>
                         </tbody>
                     </table>
                     <AddButton />

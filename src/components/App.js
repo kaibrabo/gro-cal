@@ -66,6 +66,7 @@ class App extends Component {
             <div className="App">
                 <Header />
                 <AddPlant addPlant={this.addPlant} />
+                <h2>My Garden</h2>
                 <ul className="list">
                     {this.state.plants.map((plant, index) => (
                         <ListItem
