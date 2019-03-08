@@ -4,6 +4,13 @@ import './ListItem.css';
 
 class ListItem extends Component {
 
+    // Today's Date
+    // return
+    todaysDate() {
+        let today = new Date();
+        return today;
+    }
+
     // Date to "string" conversion
     dateConvertToString(date) {
         let year = date.getFullYear();
@@ -55,7 +62,7 @@ class ListItem extends Component {
     }
 
     // start/end = "YYYY-MM-DD" string
-    // returns "int"
+    // returns "int" string
     getDifferenceOfDays(start, end) {
         // https://stackoverflow.com/a/2627493/7704510
         const oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
@@ -208,7 +215,23 @@ class ListItem extends Component {
                             <div className="veg-time" style={vegPercent}>{vegPercentage} Veg</div>
                             <div className="flower-time" style={flowerPercent}>{flowerPercentage} Flower</div>
                         </div>
-                        <div className="grow-time" style={progressPercent}>{progressPercentage} Progress</div>
+                        <div className="grow-time" style={progressPercent}>
+                        {progressPercentage} progress {this.getDifferenceOfDays(
+                                this.props.startVeg,
+                                this.dateConvertToString(this.todaysDate())
+                            )}
+                            /
+                            {this.getDifferenceOfDays(
+                                this.props.startVeg, 
+                                this.dateFormat(
+                                    this.addDays(
+                                        this.props.startFlower,
+                                        this.props.flowerTime
+                                    )
+                                )
+                            )} 
+                            days 
+                        </div>
                     </div>
                     <RemoveButton removePlant={() => this.props.removePlant(this.props.plantId)} />     
                 </li>

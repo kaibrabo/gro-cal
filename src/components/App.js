@@ -43,17 +43,7 @@ class App extends Component {
 
     addPlant(plant) {
         const plantsRef = firebase.database().ref('plants');
-        console.log(plant)
-        const newPlant = {
-            name: plant.name,
-            type: plant.type,
-            startVeg: plant.startVeg,
-            startFlower: plant.startFlower,
-            flowerTime: plant.flowerTime
-        }
-
-        plantsRef.push(newPlant);
-        this.setState({ plants: [plantsRef] });
+        plantsRef.push(plant);
     }
 
     removePlant(plantId) {
