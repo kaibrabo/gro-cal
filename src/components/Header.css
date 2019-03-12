@@ -1,6 +1,17 @@
-h1 {
-    margin: 0;
-    padding: 15px;
+.header-component {
     background-color: rgb(93, 145, 247);
+}
+
+.header-container {
+    margin: 0 auto;
+    padding: 15px;
     color: white;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    max-width: 700px;
+}
+
+.add-plant-btn {
+    
 }

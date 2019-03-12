@@ -25,6 +25,7 @@ class AddPlant extends Component {
     onSubmit(e) {
         e.preventDefault();
         this.props.addPlant(this.state);
+        e.target.reset(); // clears inputs after submit
     }
 
     render() {

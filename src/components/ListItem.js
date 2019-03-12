@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import SettingsButton from './SettingsButton';
 import RemoveButton from './RemoveButton';
 import './ListItem.css';
 
@@ -164,12 +165,13 @@ class ListItem extends Component {
         return (
                 <li className="list-item">
                     <div className="item" style={strainStyle}>
-                        <h3>
                             <span className="item-name">
-                                { this.props.name + ' ' }  
+                                <span>
+                                    { this.props.name + ' ' }  
+                                </span>
+                                ({this.props.type.substr(0,1)})
                             </span>
-                            ({this.props.type.substr(0,1)}) - Day 30{}
-                        </h3>
+                        <SettingsButton className="settings-btn"/>
                     </div>
                     <div className="item-table">
                         <table>
