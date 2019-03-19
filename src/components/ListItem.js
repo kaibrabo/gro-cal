@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import SettingsButton from './SettingsButton';
-import RemoveButton from './RemoveButton';
 import './ListItem.css';
 
 class ListItem extends Component {
@@ -70,6 +69,10 @@ class ListItem extends Component {
         const firstDate = new Date(start);
         const secondDate = new Date(end);
 
+        if (firstDate > secondDate) {
+            return '';
+        }
+
         let diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime())/(oneDay)));
         
         if (diffDays < 10) {
@@ -83,6 +86,18 @@ class ListItem extends Component {
     getPercent(val1, val2) {
         let percent = `${Math.round((val2/val1) * 100)}%`;
         return percent;
+    }
+
+    getDaysInFlower() {
+        const diffInDays = this.getDifferenceOfDays(
+                                this.props.startFlower,
+                                this.dateConvertToString(this.todaysDate())
+                            );
+
+        if (diffInDays.length === 0) {
+            return "";
+        }
+        return `- Day ${diffInDays}`
     }
 
     render() {
@@ -171,7 +186,10 @@ class ListItem extends Component {
                                 </span>
                                 ({this.props.type.substr(0,1)})
                             </span>
-                        <SettingsButton className="settings-btn"/>
+                        <SettingsButton className="settings-btn"
+                                        removePlant={this.props.removePlant}
+                                        plantId={this.props.plantId}
+                        />
                     </div>
                     <div className="item-table">
                         <table>
@@ -182,16 +200,6 @@ class ListItem extends Component {
                                     <td className="item-data">Flower</td>
                                     <td>=</td>
                                     <td className="item-data">End</td>
-                                </tr>
-                                <tr className="item-row item-dates">
-                                    <td>{this.dateFormat(this.props.startVeg)}</td>
-                                    <td>{this.dateFormat(this.props.startFlower)}</td>
-                                    <td>{this.dateFormat(
-                                            this.addDays(
-                                                this.props.startFlower,
-                                                this.props.flowerTime
-                                            )
-                                        )}</td>
                                 </tr>
                                 <tr className="item-row item-days">
                                     <td>{this.getDifferenceOfDays(
@@ -208,7 +216,17 @@ class ListItem extends Component {
                                                 )
                                             )
                                         )} days</td>
-                                </tr>                        
+                                </tr>
+                                <tr className="item-row item-dates">
+                                    <td>{this.dateFormat(this.props.startVeg)}</td>
+                                    <td>{this.dateFormat(this.props.startFlower)}</td>
+                                    <td>{this.dateFormat(
+                                            this.addDays(
+                                                this.props.startFlower,
+                                                this.props.flowerTime
+                                            )
+                                        )}</td>
+                                </tr>                    
                             </tbody>
                         </table>
                     </div>
@@ -218,24 +236,9 @@ class ListItem extends Component {
                             <div className="flower-time" style={flowerPercent}>{flowerPercentage} Flower</div>
                         </div>
                         <div className="grow-time" style={progressPercent}>
-                        {progressPercentage} progress {this.getDifferenceOfDays(
-                                this.props.startVeg,
-                                this.dateConvertToString(this.todaysDate())
-                            )}
-                            /
-                            {this.getDifferenceOfDays(
-                                this.props.startVeg, 
-                                this.dateFormat(
-                                    this.addDays(
-                                        this.props.startFlower,
-                                        this.props.flowerTime
-                                    )
-                                )
-                            )} 
-                            days 
+                            {progressPercentage} {this.getDaysInFlower()}
                         </div>
                     </div>
-                    <RemoveButton removePlant={() => this.props.removePlant(this.props.plantId)} />     
                 </li>
         );
     }

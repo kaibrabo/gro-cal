@@ -23,6 +23,11 @@
     justify-content: space-between;
 }
 
+.item-name {
+    margin: 5px 10px;
+    font-weight: 700;
+}
+
 .item-table {
     width: 100%;    
 }
@@ -75,19 +80,19 @@
 .veg-time {
     background-color: rgb(90, 153, 225);
     padding: 5px;
-    height: 3vh;
+    height: 2.5vh;
 }
 
 .flower-time {
     background-color: rgba(244, 146, 66, 0.8);
     padding: 5px;
-    height: 3vh;
+    height: 2.5vh;
 }
 
 .grow-time {
     background-color: rgb(50, 50, 50);
     padding: 5px;
-    height: 3vh;
+    height: 2.5vh;
     border-radius: 0 0 2px 2px;
 }
 

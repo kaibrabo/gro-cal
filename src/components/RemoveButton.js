@@ -7,9 +7,8 @@ class RemoveButton extends Component {
             <div className="remove-btn-container">
                 <button className="remove-btn" 
                         id="removePlantButton"
-                        onClick={() => {if (window.confirm("Are you sure?")) return this.props.removePlant}}
-                        aria-pressed="false"
-                        confirm >Remove</button>
+                        onClick={this.props.removePlant}
+                        aria-pressed="false">Remove</button>
             </div>
         )
     }
