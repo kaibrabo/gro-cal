@@ -38,6 +38,6 @@
     padding: 5px auto 3px;
 }
 
-li:nth-last-child(1) {
+.settings-dropdown li:nth-last-child(1) {
     border-bottom: none;
 }
