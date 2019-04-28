@@ -6,7 +6,7 @@ class AddButton extends Component {
         return (
             <div className="button-container">
                 <input type="submit" 
-                       value="Add Plant" 
+                       value="add plant" 
                        className="add-button" 
                        id="addPlantButton" 
                        aria-pressed="false"></input>            

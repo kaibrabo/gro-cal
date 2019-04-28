@@ -4,6 +4,10 @@ import './AddButton.css';
 import AddButton from './AddButton';
 
 class AddPlant extends Component {
+    static defaultProps ={
+        onClose() {}
+    }
+
     constructor(props) {
         super(props);
         this.state = {}
@@ -25,10 +29,12 @@ class AddPlant extends Component {
     onSubmit(e) {
         e.preventDefault();
         this.props.addPlant(this.state);
+        alert(`Successfully added ${this.state.name}`);
         e.target.reset(); // clears inputs after submit
     }
 
     render() {
+        const {onClose} = this.props;
         return (
             <div>
                 <h2>Add New Plant</h2>
@@ -88,7 +94,12 @@ class AddPlant extends Component {
                             </tr>
                         </tbody>
                     </table>
-                    <AddButton />
+                    <div className="add-cancel-btns">
+                        <AddButton />
+                        <button onClick={onClose}>
+                            cancel
+                        </button>
+                    </div>
                 </form>
             </div>
         );

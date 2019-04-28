@@ -1,8 +1,10 @@
 import React, { Component } from "react";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import firebase from "../firebase";
 import Header from "./Header";
 import AddPlant from "./AddPlant";
 import ListItem from "./ListItem";
+import GardenList from "./GardenList";
 import "./App.css";
 
 class App extends Component {
@@ -10,7 +12,8 @@ class App extends Component {
         super(props);
 
         this.state = {
-            plants: []
+            plants: [],
+            showForm: false
         };
 
         this.addPlant = this.addPlant.bind(this);
@@ -18,9 +21,9 @@ class App extends Component {
 
     componentDidMount() {
         // Retrieves plants object from firebase
-        const plantsRef = firebase.database().ref('plants');
+        const plantsRef = firebase.database().ref("plants");
 
-        plantsRef.on('value', (snapshot) => {
+        plantsRef.on("value", snapshot => {
             let plants = snapshot.val();
             let newState = [];
 
@@ -32,17 +35,17 @@ class App extends Component {
                     startVeg: plants[plant].startVeg,
                     startFlower: plants[plant].startFlower,
                     flowerTime: plants[plant].flowerTime
-                })
+                });
             }
 
             this.setState({
                 plants: newState
-            })
+            });
         });
     }
 
     addPlant(plant) {
-        const plantsRef = firebase.database().ref('plants');
+        const plantsRef = firebase.database().ref("plants");
         plantsRef.push(plant);
     }
 
@@ -52,26 +55,25 @@ class App extends Component {
     }
 
     render() {
+        const {showForm} = this.state;
+
         return (
-            <div className="App">
-                <Header />
-                <AddPlant addPlant={this.addPlant} />
-                <h2>My Garden</h2>
-                <ul className="list">
-                    {this.state.plants.map((plant, index) => (
-                        <ListItem
-                            key={index}
-                            plantId={plant.id}
-                            name={plant.name}
-                            type={plant.type}
-                            startVeg={plant.startVeg}
-                            startFlower={plant.startFlower}
-                            flowerTime={plant.flowerTime}
-                            removePlant={this.removePlant}
-                        />
-                    ))}
-                </ul>
-            </div>
+            <Router>
+
+                <div className="App">
+                    <Header onAddPlant={() => this.setState({showForm: true})}/>
+                    {showForm ? 
+                        <AddPlant 
+                            addPlant={this.addPlant}
+                            onClose={() => this.setState({showForm: false})} 
+                        /> : 
+                        null }
+                    {/* <GardenList plants={this.state.plants} /> */}
+                    <Switch>
+                        <Route path="/" exact render={() => (<GardenList plants={this.state.plants} removePlant={this.removePlant}/>)} />
+                    </Switch>
+                </div>
+            </Router>
         );
     }
 }
