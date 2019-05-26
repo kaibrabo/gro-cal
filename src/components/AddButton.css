@@ -1,6 +1,6 @@
 .add-button {
     cursor: pointer;
-    color: #4CAF50; /* Green */
+    color: rgb(32, 137, 0); /* Green */
     background: inherit;
     border: none;
     font-size: 16px;
@@ -11,4 +11,5 @@
 .add-button:active {
     background-color: green;
 }
+
 

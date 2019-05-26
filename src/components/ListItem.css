@@ -1,11 +1,13 @@
 .list-item {
-    border: 1px solid rgb(40,40,40);
+    /* border-right: 1px solid rgb(175, 175, 175);
+    border-left: 1px solid rgb(175, 175, 175); */
+    border: 1px solid rgb(200, 200, 200);
+
     border-radius: 4px;
     width: 100%;
     max-width: 400px;
     margin: 10px auto;
     text-align: left;
-    padding: 0 0 10px 0;
     display: flex;
     flex-direction: column;
     text-align: center;
@@ -68,8 +70,8 @@
     width: 100%;
     margin: 0 auto 30px;
     border-radius: 4px;
-    height: 6vh;
-    color: rgb(255, 255, 255);
+    height: 30px;
+    color: rgb(0,0,0);
 }
 
 .total-time {
@@ -78,20 +80,20 @@
 }
 
 .veg-time {
-    background-color: rgb(90, 153, 225);
+    background-color: rgb(90, 153, 225,0.5);
     padding: 5px;
     height: 20px;
 }
 
 .flower-time {
-    background-color: rgba(244, 146, 66, 0.8);
+    background-color: rgba(244, 146, 66, 0.5);
     padding: 5px;
     height: 20px;
 }
 
 .grow-time {
-    background-color: rgb(50, 50, 50);
-    padding: 5px;
+    background-color: rgb(29, 29, 29, 0.5);
+    padding: 5px 0;
     height: 20px;
     border-radius: 0 0 2px 2px;
 }

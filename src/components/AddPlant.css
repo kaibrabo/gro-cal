@@ -53,7 +53,7 @@ input:focus {
 
 .add-cancel-btns button {
     cursor: pointer;
-    color: red;
+    color: rgb(214, 57, 57);
     background: inherit;
     border: none;
     font-size: 16px;

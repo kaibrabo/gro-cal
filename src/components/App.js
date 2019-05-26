@@ -1,9 +1,8 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import firebase from "../firebase";
 import Header from "./Header";
 import AddPlant from "./AddPlant";
-import ListItem from "./ListItem";
 import GardenList from "./GardenList";
 import "./App.css";
 
@@ -68,9 +67,10 @@ class App extends Component {
                             onClose={() => this.setState({showForm: false})} 
                         /> : 
                         null }
-                    {/* <GardenList plants={this.state.plants} /> */}
                     <Switch>
-                        <Route path="/" exact render={() => (<GardenList plants={this.state.plants} removePlant={this.removePlant}/>)} />
+                        <Route path="/" exact render={() => (
+                            <GardenList plants={this.state.plants} removePlant={this.removePlant}/>
+                        )} />
                     </Switch>
                 </div>
             </Router>

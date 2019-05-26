@@ -84,8 +84,9 @@ class ListItem extends Component {
     }
 
     getPercent(val1, val2) {
-        let percent = `${Math.round((val2/val1) * 100)}%`;
-        return percent;
+        let percent = Math.round((val2/val1) * 100);
+        percent = percent >= 100 ? 100 : percent;
+        return `${percent}%`;
     }
 
     getDaysInFlower() {
@@ -107,22 +108,23 @@ class ListItem extends Component {
         // Displays strain.type label color
         switch (this.props.type) {
             case 'Indica':
-                strainColor = 'rgb(199, 89, 224)';
+                strainColor = 'rgb(168, 45, 196)';
                 break;
             case 'Hybrid':
-                strainColor = 'rgb(115, 214, 85)';
+                strainColor = 'rgb(32, 137, 0)';
                 break;
             case 'Sativa':
-                strainColor = 'rgb(214, 85, 85)';
+                strainColor = 'rgb(214, 57, 57)';
                 break;
             default:
-                strainColor = 'rgb(115, 214, 85)';
+                strainColor = 'rgb(32, 137, 0)';
         }
 
         const strainStyle = {
             backgroundColor: strainColor
         };
 
+        // Veg, Flower & Total time percentage
         const vegPercentage = this.getPercent(
             this.getDifferenceOfDays(
                 this.props.startVeg, 
@@ -164,7 +166,8 @@ class ListItem extends Component {
             ),
             this.getDifferenceOfDays(this.props.startVeg, this.dateConvertToString(today))
         );
-
+        
+        // apply Veg, Flower & Total time percentages to style attributes for progress bar
         const vegPercent = {
             width: vegPercentage
         }

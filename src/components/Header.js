@@ -1,15 +1,12 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import AddPlant from './AddPlant';
-import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
+import {BrowserRouter as Router} from 'react-router-dom';
 import './Header.css';
 import {withRouter} from 'react-router'
 
 class Header extends Component {
     static defaultProps = {
-        onAddPlant() {
-
-        }
+        onAddPlant() {}
     }
 
     static propTypes = {
@@ -21,11 +18,9 @@ class Header extends Component {
             <Router>
                 <div className="header-component">
                     <div className="header-container">
-                        <div className="menu-btn">
-                            <ion-icon name="menu"></ion-icon>
-                        </div>
                         <div className="header-title">
-                            <h1>Grow Calendar</h1>
+                            <h1>BL</h1>
+                            <p>blumelist</p>
                         </div>
                         <div className="add-plant-btn">
                             <button onClick={this.props.onAddPlant}>add</button>
