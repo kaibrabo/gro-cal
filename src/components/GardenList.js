@@ -24,14 +24,18 @@ class GardenList extends Component {
 
     render() {
         var gardenHeader, plantsList;
+        const today = new Date();       // IMPORTANT: must appear above plants.filter() 
         const showGardenList = this.state.showFinishedList;
         const myGarden = this.state.myGarden;
         const plants = this.props.plants;
-        const today = new Date();
+
+        // Creates two lists
         const growing = plants.filter(stillGrowing);
         const finished = plants.filter(isFinished);
         
+        // Creating each item 
         const growingPlants = growing.map((plant, index) => {
+
             return (
                 <ListItem
                     key={index}
@@ -42,10 +46,11 @@ class GardenList extends Component {
                     startFlower={plant.startFlower}
                     flowerTime={plant.flowerTime}
                     removePlant={this.props.removePlant}
+                    editPlant={this.props.editPlant}
                 />
             );
         });
-    
+        
         const finishedPlants = finished.map((plant, index) => {
             return (
                 <ListItem
@@ -57,10 +62,12 @@ class GardenList extends Component {
                     startFlower={plant.startFlower}
                     flowerTime={plant.flowerTime}
                     removePlant={this.props.removePlant}
+                    editPlant={this.props.editPlant}
                 />
             );
         });
-
+        
+        // sets display for Garden list & header title
         if (showGardenList) {
             gardenHeader = <button className="garden-list" onClick={this.showGarden}>{myGarden}</button>
             plantsList = <ul className="list"> {finishedPlants} </ul>;
@@ -68,7 +75,7 @@ class GardenList extends Component {
             gardenHeader = <button className="garden-list" onClick={this.showFinished}>{myGarden}</button>
             plantsList = <ul className="list"> {growingPlants} </ul>;
         }
-    
+        
         function stillGrowing(plant) {
             const endFlowerDate = new Date(plant.startFlower);
             endFlowerDate.setDate(endFlowerDate.getDate() + parseInt(plant.flowerTime) + 1);

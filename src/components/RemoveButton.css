@@ -1,7 +1,4 @@
-.remove-btn {
-    border: none;
-    background: inherit;
-    color: inherit;
-    font-size: inherit;
+#removePlantButton {
+    margin: 9px 9px 0 0;
 }
 

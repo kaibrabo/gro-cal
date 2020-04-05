@@ -5,14 +5,6 @@ import './Header.css';
 import {withRouter} from 'react-router'
 
 class Header extends Component {
-    static defaultProps = {
-        onAddPlant() {}
-    }
-
-    static propTypes = {
-        onAddPlant: PropTypes.func
-    }
-
     render() {
         return (
             <Router>
@@ -21,6 +13,9 @@ class Header extends Component {
                         <div className="header-title">
                             <h1>BL</h1>
                             <p>blumelist</p>
+                        </div>
+                        <div className="singIn-btn">
+                            <button onClick={this.props.signIn}>sign in</button>
                         </div>
                         <div className="add-plant-btn">
                             <button onClick={this.props.onAddPlant}>add</button>
