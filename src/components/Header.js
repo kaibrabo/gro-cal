@@ -1,8 +1,8 @@
-import React, {Component} from 'react';
-import PropTypes from 'prop-types';
-import {BrowserRouter as Router} from 'react-router-dom';
-import './Header.css';
-import {withRouter} from 'react-router'
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { BrowserRouter as Router } from "react-router-dom";
+import "./Header.css";
+import { withRouter } from "react-router";
 
 class Header extends Component {
     render() {
@@ -15,7 +15,20 @@ class Header extends Component {
                             <p>blumelist</p>
                         </div>
                         <div className="singIn-btn">
-                            <button onClick={this.props.signIn}>sign in</button>
+                            {this.props.user ? (
+                                <div>
+                                    <div>
+                                        <span>{this.props.user.displayName}</span>
+                                    </div>
+                                    <button onClick={this.props.signOut}>
+                                        sign out
+                                    </button>
+                                </div>
+                            ) : (
+                                <button onClick={this.props.signIn}>
+                                    sign in
+                                </button>
+                            )}
                         </div>
                         <div className="add-plant-btn">
                             <button onClick={this.props.onAddPlant}>add</button>
