@@ -1,8 +1,13 @@
 import React, {Component} from 'react';
 import './AddPlant.css';
 import './AddButton.css';
+import AddButton from './AddButton';
 
 class AddPlant extends Component {
+    static defaultProps ={
+        onClose() {}
+    }
+
     constructor(props) {
         super(props);
         this.state = {}
@@ -24,9 +29,11 @@ class AddPlant extends Component {
     onSubmit(e) {
         e.preventDefault();
         this.props.addPlant(this.state);
+        e.target.reset(); // clears inputs after submit
     }
 
     render() {
+        const {onClose} = this.props;
         return (
             <div>
                 <h2>Add New Plant</h2>
@@ -38,7 +45,7 @@ class AddPlant extends Component {
                                 <td className="input-field">
                                     <input type="text"
                                            name="name"
-                                           onChange={this.handleInputChange} />
+                                           onChange={this.handleInputChange} required/>
                                 </td>
                             </tr>
                             <tr>
@@ -46,7 +53,7 @@ class AddPlant extends Component {
                                 <td className="input-field">
                                     <input list="strain-type" 
                                            name="type"
-                                           onChange={this.handleInputChange} />
+                                           onChange={this.handleInputChange} required/>
                                     <datalist id="strain-type">
                                         <option value="Hybrid"></option>
                                         <option value="Indica"></option>
@@ -59,7 +66,7 @@ class AddPlant extends Component {
                                 <td className="input-field">
                                     <input type="date" 
                                            name="startVeg"
-                                           onChange={this.handleInputChange} />
+                                           onChange={this.handleInputChange} required/>
                                 </td>
                             </tr>
                             <tr>
@@ -81,23 +88,17 @@ class AddPlant extends Component {
                                     <input type="number" 
                                            placeholder="~ 60 days +-" 
                                            name="flowerTime"
-                                           onChange={this.handleInputChange} />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td className="input-title">
-                                    <label>
-                                        est. harvest:
-                                    </label>
-                                </td>
-                                <td className="input-field">
-                                    {/* Harvest = StartFlowering date + FlowerTime days */}
+                                           onChange={this.handleInputChange} required/>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
-
-                    <input type="submit" value="Add Plant" className="add-button" />
+                    <div className="add-cancel-btns">
+                        <AddButton />
+                        <button onClick={onClose}>
+                            cancel
+                        </button>
+                    </div>
                 </form>
             </div>
         );

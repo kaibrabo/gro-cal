@@ -41,3 +41,22 @@ input:-webkit-autofill:active  {
 input:focus {
     outline: none;
 }
+
+.add-cancel-btns {
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-around;
+    margin: 10px auto;
+}
+
+.add-cancel-btns button {
+    cursor: pointer;
+    color: rgb(214, 57, 57);
+    background: inherit;
+    border: none;
+    font-size: 16px;
+    margin: 0;
+    font-weight: 700;
+}

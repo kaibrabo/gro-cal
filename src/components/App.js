@@ -1,77 +1,203 @@
 import React, { Component } from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import firebase from "../firebase";
 import Header from "./Header";
 import AddPlant from "./AddPlant";
-import ListItem from "./ListItem";
+import GardenList from "./GardenList";
 import "./App.css";
 
 class App extends Component {
+    /* eslint-disable no-unused-vars */
+
     constructor(props) {
         super(props);
 
         this.state = {
-            plants: []
+            inventory: [],
+            showForm: false,
+            user: null,
         };
 
-        this.addPlant = this.addPlant.bind(this);
+        this.fs = firebase.firestore();
+        this.auth = firebase.auth();
+        this.userRef = this.fs.collection("users");
     }
 
     componentDidMount() {
-        const plantsRef = firebase.database().ref('plants');
-        plantsRef.on('value', (snapshot) => {
-            let plants = snapshot.val();
-            let newState = [];
-
-            for (let plant in plants) {
-                newState.push({
-                    id: plant,
-                    name: plants[plant].name,
-                    type: plants[plant].type,
-                    startVeg: plants[plant].startVeg,
-                    startFlower: plants[plant].startFlower,
-                    flowerTime: plants[plant].flowerTime
-                })
-            }
-
-            this.setState({
-                plants: newState
+        this.auth
+            .getRedirectResult()
+            .then((result) => {
+                if (result.credential) {
+                    // This gives you a Google Access Token. You can use it to access the Google API.
+                    const token = result.credential.accessToken;
+                }
+                // The signed-in user info.
+                const user = result.user;
             })
+            .catch((error) => {
+                // Handle Errors here.
+                const { code, message, email, credential } = error;
+                const errorObj = {
+                    code,
+                    message,
+                    email,
+                    credential,
+                };
+                console.log(errorObj);
+            });
+
+        this.auth.onAuthStateChanged(async (user) => {
+            if (user) {
+                // User is signed in.
+                this.setState({ user: user });
+                this.getInventory(user);
+            } else {
+                // User is signed out.
+                console.log("Auth State: User is/has signed out");
+            }
         });
     }
 
-    addPlant(plant) {
-        const plantsRef = firebase.database().ref('plants');
-        console.log(plant)
-        const newPlant = {
-            name: plant.name,
-            type: plant.type,
-            startVeg: plant.startVeg,
-            startFlower: plant.startFlower,
-            flowerTime: plant.flowerTime
-        }
+    getInventory = async (user) => {
+        let inventory = [];
+        this.userRef
+            .doc(user.uid)
+            .get()
+            .then((doc) => {
+                if (doc.exists) {
+                    // import inventory
+                    inventory = doc.data().inventory;
+                    this.setState({ inventory: inventory });
+                } else {
+                    // add inventory to state & fbdb,
+                    // & create user in fbdb
+                    this.userRef
+                        .doc(user.uid)
+                        .set({ user: user.email, inventory: inventory });
+                    this.setState({ inventory: inventory });
+                }
+            });
+    };
 
-        plantsRef.push(newPlant);
-        this.setState({ plants: [plantsRef] });
-    }
+    signIn = () => {
+        const provider = new firebase.auth.GoogleAuthProvider();
+        firebase.auth().signInWithRedirect(provider);
+    };
+
+    signOut = () => {
+        const _this = this;
+        this.auth
+            .signOut()
+            .then(function () {
+                _this.setState({
+                    inventory: [],
+                    plants: [],
+                    showForm: false,
+                    user: null,
+                });
+            })
+            .catch(function (error) {
+                console.log("Error: ", error);
+            });
+    };
+
+    addPlant = async (plant) => {
+        if (this.state.user) {
+            let plantId = this.guidGenerator();
+            const addInventory = {
+                inventory: [...this.state.inventory, { ...plant, plantId }],
+            };
+            this.setState(addInventory);
+            this.userRef.doc(this.state.user.uid).set(addInventory);
+        } else {
+            alert("addPlant error: No User");
+        }
+    };
+
+    removePlant = async (plantId) => {
+        const confirm = window.confirm(
+            "Are you sure you'd like to delete this plant?"
+        );
+        if (confirm) {
+            this.userRef
+                .doc(this.state.user.uid)
+                .get()
+                .then((doc) => {
+                    if (doc.exists) {
+                        let inventory = doc.data().inventory;
+                        let newInventory = inventory.filter(
+                            (item) => item.plantId !== plantId
+                        );
+                        this.setState({ inventory: newInventory });
+                        this.userRef
+                            .doc(this.state.user.uid)
+                            .set({ inventory: newInventory });
+                    }
+                });
+        }
+    };
+
+    // TODO: Edit Plant functionality
+    editPlant = (plant) => {
+        // const plant = firebase.database().ref(`/plants/${plantId}`);
+        console.log(plant);
+    };
+
+    guidGenerator = () => {
+        let S4 = () => {
+            return (((1 + Math.random()) * 0x10000) | 0)
+                .toString(16)
+                .substring(1);
+        };
+        return (
+            S4() +
+            S4() +
+            "-" +
+            S4() +
+            "-" +
+            S4() +
+            "-" +
+            S4() +
+            "-" +
+            S4() +
+            S4() +
+            S4()
+        );
+    };
 
     render() {
+        const { showForm } = this.state;
+
         return (
-            <div className="App">
-                <Header />
-                <AddPlant addPlant={this.addPlant} />
-                <ul className="list">
-                    {this.state.plants.map((plant, index) => (
-                        <ListItem
-                            key={index}
-                            name={plant.name}
-                            type={plant.type}
-                            startVeg={plant.startVeg}
-                            startFlower={plant.startFlower}
-                            flowerTime={plant.flowerTime}
+            <Router>
+                <div className="App">
+                    <Header
+                        onAddPlant={() => this.setState({ showForm: true })}
+                        signIn={this.signIn}
+                        signOut={this.signOut}
+                        user={this.state.user}
+                    />
+                    {showForm ? (
+                        <AddPlant
+                            addPlant={this.addPlant}
+                            onClose={() => this.setState({ showForm: false })}
                         />
-                    ))}
-                </ul>
-            </div>
+                    ) : null}
+                    <Switch>
+                        <Route
+                            path="/"
+                            exact
+                            render={() => (
+                                <GardenList
+                                    plants={this.state.inventory}
+                                    removePlant={this.removePlant}
+                                    editPlant={this.editPlant}
+                                />
+                            )}
+                        />
+                    </Switch>
+                </div>
+            </Router>
         );
     }
 }
