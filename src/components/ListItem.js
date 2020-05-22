@@ -182,9 +182,10 @@ class ListItem extends Component {
                         {this.props.type.substr(0, 1)})
                     </span>
                     <RemoveButton
-                        removePlant={() =>
-                            this.props.removePlant(this.props.plantId)
-                        }
+                        removePlant={() => {
+                            console.log(this.props.plantId);
+                            this.props.removePlant(this.props.plantId);
+                        }}
                     />
                 </div>
                 <div className="item-table">

@@ -13,13 +13,14 @@ class App extends Component {
         super(props);
 
         this.state = {
-            plants: [],
+            inventory: [],
             showForm: false,
             user: null,
         };
 
         this.fs = firebase.firestore();
         this.auth = firebase.auth();
+        this.userRef = this.fs.collection("users");
     }
 
     componentDidMount() {
@@ -48,58 +49,34 @@ class App extends Component {
         this.auth.onAuthStateChanged(async (user) => {
             if (user) {
                 // User is signed in.
-                // console.log("Auth State Change USER: ", user);
                 this.setState({ user: user });
                 this.getInventory(user);
             } else {
                 // User is signed out.
-                console.log("User is/has signed out");
+                console.log("Auth State: User is/has signed out");
             }
         });
-
-        //     // // Retrieves plants object from firebase
-        //     // const plantsRef = firebase.database().ref("plants");
-        //     // plantsRef.on("value", snapshot => {
-        //     //     let plants = snapshot.val();
-        //     //     let newState = [];
-        //     //     for (let plant in plants) {
-        //     //         let p = plants[plant];
-        //     //         newState.push({
-        //     //             id: plant,
-        //     //             name: p.name,
-        //     //             type: p.type,
-        //     //             startVeg: p.startVeg,
-        //     //             startFlower: p.startFlower,
-        //     //             flowerTime: p.flowerTime
-        //     //         });
-        //     //     }
-        //     //     this.setState({
-        //     //         plants: newState
-        //     //     });
-        //     // });
     }
 
     getInventory = async (user) => {
-        // console.log("getInv: ", user);
-        // console.log("userID: ", user.uid);
-        let inventory = {};
-        const userRef = await this.fs.collection("users").doc(user.uid);
-        userRef.get().then((doc) => {
-            // console.log(doc.exists);
-            if (doc.exists) {
-                // import inventory
-                inventory = doc.data().inventory;
-                // console.log(inventory);
-                
-                // console.log(1);
-            } else {
-                // add inventory to state & fbdb,
-                // & create user in fbdb
-                userRef.set({ inventory: inventory });
-                this.setState({ inventory: inventory });
-                // console.log(2);
-            }
-        })
+        let inventory = [];
+        this.userRef
+            .doc(user.uid)
+            .get()
+            .then((doc) => {
+                if (doc.exists) {
+                    // import inventory
+                    inventory = doc.data().inventory;
+                    this.setState({ inventory: inventory });
+                } else {
+                    // add inventory to state & fbdb,
+                    // & create user in fbdb
+                    this.userRef
+                        .doc(user.uid)
+                        .set({ user: user.email, inventory: inventory });
+                    this.setState({ inventory: inventory });
+                }
+            });
     };
 
     signIn = () => {
@@ -108,13 +85,12 @@ class App extends Component {
     };
 
     signOut = () => {
-        console.log("fired sign out");
-
         const _this = this;
         this.auth
             .signOut()
             .then(function () {
                 _this.setState({
+                    inventory: [],
                     plants: [],
                     showForm: false,
                     user: null,
@@ -125,26 +101,68 @@ class App extends Component {
             });
     };
 
-    addPlant = (plant) => {
-        const plantsRef = firebase.database().ref("plants");
-        plantsRef.push(plant);
+    addPlant = async (plant) => {
+        if (this.state.user) {
+            let plantId = this.guidGenerator();
+            const addInventory = {
+                inventory: [...this.state.inventory, { ...plant, plantId }],
+            };
+            this.setState(addInventory);
+            this.userRef.doc(this.state.user.uid).set(addInventory);
+        } else {
+            alert("addPlant error: No User");
+        }
     };
 
-    removePlant = (plantId) => {
-        const plant = firebase.database().ref(`/plants/${plantId}`);
+    removePlant = async (plantId) => {
         const confirm = window.confirm(
             "Are you sure you'd like to delete this plant?"
         );
         if (confirm) {
-            plant.remove();
+            this.userRef
+                .doc(this.state.user.uid)
+                .get()
+                .then((doc) => {
+                    if (doc.exists) {
+                        let inventory = doc.data().inventory;
+                        let newInventory = inventory.filter(
+                            (item) => item.plantId !== plantId
+                        );
+                        this.setState({ inventory: newInventory });
+                        this.userRef
+                            .doc(this.state.user.uid)
+                            .set({ inventory: newInventory });
+                    }
+                });
         }
-        return;
     };
 
     // TODO: Edit Plant functionality
     editPlant = (plant) => {
         // const plant = firebase.database().ref(`/plants/${plantId}`);
         console.log(plant);
+    };
+
+    guidGenerator = () => {
+        let S4 = () => {
+            return (((1 + Math.random()) * 0x10000) | 0)
+                .toString(16)
+                .substring(1);
+        };
+        return (
+            S4() +
+            S4() +
+            "-" +
+            S4() +
+            "-" +
+            S4() +
+            "-" +
+            S4() +
+            "-" +
+            S4() +
+            S4() +
+            S4()
+        );
     };
 
     render() {
@@ -171,7 +189,7 @@ class App extends Component {
                             exact
                             render={() => (
                                 <GardenList
-                                    plants={this.state.plants}
+                                    plants={this.state.inventory}
                                     removePlant={this.removePlant}
                                     editPlant={this.editPlant}
                                 />
