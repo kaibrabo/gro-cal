@@ -7,6 +7,8 @@ import GardenList from "./GardenList";
 import "./App.css";
 
 class App extends Component {
+    /* eslint-disable no-unused-vars */
+
     constructor(props) {
         super(props);
 
@@ -15,22 +17,13 @@ class App extends Component {
             showForm: false,
             user: null,
         };
+
+        this.fs = firebase.firestore();
+        this.auth = firebase.auth();
     }
 
     componentDidMount() {
-        firebase.auth().onAuthStateChanged(async (user) => {
-            if (user) {
-                // User is signed in.
-                console.log("Auth State Change USER: ", user);
-                this.setState({ user: user });
-            } else {
-                // User is signed out.
-                console.log("User is/has signed out");
-            }
-        });
-
-        firebase
-            .auth()
+        this.auth
             .getRedirectResult()
             .then((result) => {
                 if (result.credential) {
@@ -51,6 +44,18 @@ class App extends Component {
                 };
                 console.log(errorObj);
             });
+
+        this.auth.onAuthStateChanged(async (user) => {
+            if (user) {
+                // User is signed in.
+                // console.log("Auth State Change USER: ", user);
+                this.setState({ user: user });
+                this.getInventory(user);
+            } else {
+                // User is signed out.
+                console.log("User is/has signed out");
+            }
+        });
 
         //     // // Retrieves plants object from firebase
         //     // const plantsRef = firebase.database().ref("plants");
@@ -74,6 +79,29 @@ class App extends Component {
         //     // });
     }
 
+    getInventory = async (user) => {
+        // console.log("getInv: ", user);
+        // console.log("userID: ", user.uid);
+        let inventory = {};
+        const userRef = await this.fs.collection("users").doc(user.uid);
+        userRef.get().then((doc) => {
+            // console.log(doc.exists);
+            if (doc.exists) {
+                // import inventory
+                inventory = doc.data().inventory;
+                // console.log(inventory);
+                
+                // console.log(1);
+            } else {
+                // add inventory to state & fbdb,
+                // & create user in fbdb
+                userRef.set({ inventory: inventory });
+                this.setState({ inventory: inventory });
+                // console.log(2);
+            }
+        })
+    };
+
     signIn = () => {
         const provider = new firebase.auth.GoogleAuthProvider();
         firebase.auth().signInWithRedirect(provider);
@@ -83,11 +111,14 @@ class App extends Component {
         console.log("fired sign out");
 
         const _this = this;
-        firebase
-            .auth()
+        this.auth
             .signOut()
             .then(function () {
-                _this.setState({ user: null });
+                _this.setState({
+                    plants: [],
+                    showForm: false,
+                    user: null,
+                });
             })
             .catch(function (error) {
                 console.log("Error: ", error);

@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import { BrowserRouter as Router } from "react-router-dom";
 import "./Header.css";
 import { withRouter } from "react-router";
@@ -13,6 +12,9 @@ class Header extends Component {
                         <div className="header-title">
                             <h1>BL</h1>
                             <p>blumelist</p>
+                        </div>
+                        <div className="add-plant-btn">
+                            <button onClick={this.props.onAddPlant}>add</button>
                         </div>
                         <div className="singIn-btn">
                             {this.props.user ? (
@@ -29,9 +31,6 @@ class Header extends Component {
                                     sign in
                                 </button>
                             )}
-                        </div>
-                        <div className="add-plant-btn">
-                            <button onClick={this.props.onAddPlant}>add</button>
                         </div>
                     </div>
                 </div>
