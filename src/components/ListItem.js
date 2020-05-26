@@ -1,7 +1,16 @@
 import React, { Component } from "react";
-import RemoveButton from './RemoveButton';import "./ListItem.css";
+import RemoveButton from "./RemoveButton";
+import EditPlant from "./EditPlant";
+import EditButton from "./EditButton";
+import "./ListItem.css";
 
 class ListItem extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            showEditForm: false,
+        };
+    }
     // Today's Date
     // return
     todaysDate() {
@@ -54,7 +63,7 @@ class ListItem extends Component {
     // array of strings => array of ints
     // ["YYYY", "MM", "DD"] => [YYYY, MM, DD]
     convertDateToIntArray(dateArray) {
-        let newArray = dateArray.map(x => parseInt(x, 10));
+        let newArray = dateArray.map((x) => parseInt(x, 10));
         let newDate = new Date(newArray[0], newArray[1] - 1, newArray[2]);
         return newDate;
     }
@@ -121,7 +130,7 @@ class ListItem extends Component {
         }
 
         const strainStyle = {
-            backgroundColor: strainColor
+            backgroundColor: strainColor,
         };
 
         // Veg, Flower & Total time percentage
@@ -163,30 +172,38 @@ class ListItem extends Component {
 
         // apply Veg, Flower & Total time percentages to style attributes for progress bar
         const vegPercent = {
-            width: vegPercentage
+            width: vegPercentage,
         };
 
         const flowerPercent = {
-            width: flowerPercentage
+            width: flowerPercentage,
         };
 
         const progressPercent = {
-            width: progressPercentage
+            width: progressPercentage,
         };
 
         return (
             <li className="list-item">
                 <div className="item" style={strainStyle}>
-                    <span className="item-name">
-                        <span>{this.props.name + " "}</span>(
-                        {this.props.type.substr(0, 1)})
-                    </span>
-                    <RemoveButton
-                        removePlant={() => {
-                            console.log(this.props.plantId);
-                            this.props.removePlant(this.props.plantId);
-                        }}
-                    />
+                    <div>
+                        <span className="item-name">
+                            <span>{this.props.name + " "}</span>(
+                            {this.props.type.substr(0, 1)})
+                        </span>
+                    </div>
+                    <div className="item-buttons">
+                        <EditButton
+                            editPlant={() => {
+                                this.setState({ showEditForm: true });
+                            }}
+                        />
+                        <RemoveButton
+                            removePlant={() => {
+                                this.props.removePlant(this.props.plantId);
+                            }}
+                        />
+                    </div>
                 </div>
                 <div className="item-table">
                     <table>
@@ -249,6 +266,22 @@ class ListItem extends Component {
                     <div className="grow-time" style={progressPercent}>
                         {progressPercentage} {this.getDaysInFlower()}
                     </div>
+                </div>
+                <div>
+                    {this.state.showEditForm ? (
+                        <EditPlant
+                            plantId={this.props.plantId}
+                            name={this.props.name}
+                            type={this.props.type}
+                            startVeg={this.props.startVeg}
+                            startFlower={this.props.startFlower}
+                            flowerTime={this.props.flowerTime}
+                            onClose={() =>
+                                this.setState({ showEditForm: false })
+                            }
+                            savePlant={this.props.savePlant}
+                            />
+                    ) : null}
                 </div>
             </li>
         );

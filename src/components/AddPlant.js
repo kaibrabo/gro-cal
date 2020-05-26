@@ -11,12 +11,9 @@ class AddPlant extends Component {
     constructor(props) {
         super(props);
         this.state = {}
-
-        this.handleInputChange = this.handleInputChange.bind(this);
-        this.onSubmit = this.onSubmit.bind(this);
     }
 
-    handleInputChange(e) {
+    handleInputChange = (e) => {
         const target = e.target;
         const name = target.name;
         const value = target.value;
@@ -26,7 +23,7 @@ class AddPlant extends Component {
         })
     }
 
-    onSubmit(e) {
+    onSubmit = (e) => {
         e.preventDefault();
         this.props.addPlant(this.state);
         e.target.reset(); // clears inputs after submit

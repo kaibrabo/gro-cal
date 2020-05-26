@@ -14,7 +14,7 @@ class App extends Component {
 
         this.state = {
             inventory: [],
-            showForm: false,
+            showAddForm: false,
             user: null,
         };
 
@@ -59,24 +59,28 @@ class App extends Component {
     }
 
     getInventory = async (user) => {
-        let inventory = [];
-        this.userRef
-            .doc(user.uid)
-            .get()
-            .then((doc) => {
-                if (doc.exists) {
-                    // import inventory
-                    inventory = doc.data().inventory;
-                    this.setState({ inventory: inventory });
-                } else {
-                    // add inventory to state & fbdb,
-                    // & create user in fbdb
-                    this.userRef
-                        .doc(user.uid)
-                        .set({ user: user.email, inventory: inventory });
-                    this.setState({ inventory: inventory });
-                }
-            });
+        if (user) {
+            let inventory = [];
+            this.userRef
+                .doc(user.uid)
+                .get()
+                .then((doc) => {
+                    if (doc.exists) {
+                        // import inventory
+                        inventory = doc.data().inventory;
+                        this.setState({ inventory: inventory });
+                    } else {
+                        // add inventory to state & fbdb,
+                        // & create user in fbdb
+                        this.userRef
+                            .doc(user.uid)
+                            .set({ user: user.email, inventory: inventory });
+                        this.setState({ inventory: inventory });
+                    }
+                });
+        } else {
+            console.log("Error: GetInventory: No User found")
+        }
     };
 
     signIn = () => {
@@ -91,7 +95,6 @@ class App extends Component {
             .then(function () {
                 _this.setState({
                     inventory: [],
-                    plants: [],
                     showForm: false,
                     user: null,
                 });
@@ -107,10 +110,10 @@ class App extends Component {
             const addInventory = {
                 inventory: [...this.state.inventory, { ...plant, plantId }],
             };
-            this.setState(addInventory);
-            this.userRef.doc(this.state.user.uid).set(addInventory);
+            this.setState({ inventory: addInventory });
+            this.userRef.doc(this.state.user.uid).set({ addInventory });
         } else {
-            alert("addPlant error: No User");
+            alert("Add Plant error: No User");
         }
     };
 
@@ -137,12 +140,25 @@ class App extends Component {
         }
     };
 
-    // TODO: Edit Plant functionality
-    editPlant = (plant) => {
-        // const plant = firebase.database().ref(`/plants/${plantId}`);
-        console.log(plant);
+    savePlant = (plant) => {
+        try {
+            const { inventory } = this.state;
+            const updatedInventory = inventory;
+            for (let a = 0; a < inventory.length; a++) {
+                if (inventory[a].plantId === plant.plantId) {
+                    updatedInventory[a] = plant;
+                    this.setState({ inventory: updatedInventory });
+                }
+            }
+            this.userRef
+                .doc(this.state.user.uid)
+                .set({ inventory: updatedInventory });
+        } catch (e) {
+            console.log("Error: ", e);
+        }
     };
 
+    // General ID Generator
     guidGenerator = () => {
         let S4 = () => {
             return (((1 + Math.random()) * 0x10000) | 0)
@@ -166,21 +182,25 @@ class App extends Component {
     };
 
     render() {
-        const { showForm } = this.state;
+        const { showAddForm } = this.state;
 
         return (
             <Router>
                 <div className="App">
                     <Header
-                        onAddPlant={() => this.setState({ showForm: true })}
+                        onAddPlant={() =>
+                            this.setState({ showAddForm: true, addItem: true })
+                        }
                         signIn={this.signIn}
                         signOut={this.signOut}
                         user={this.state.user}
                     />
-                    {showForm ? (
+                    {showAddForm ? (
                         <AddPlant
                             addPlant={this.addPlant}
-                            onClose={() => this.setState({ showForm: false })}
+                            onClose={() =>
+                                this.setState({ showAddForm: false })
+                            }
                         />
                     ) : null}
                     <Switch>
@@ -191,7 +211,7 @@ class App extends Component {
                                 <GardenList
                                     plants={this.state.inventory}
                                     removePlant={this.removePlant}
-                                    editPlant={this.editPlant}
+                                    savePlant={this.savePlant}
                                 />
                             )}
                         />

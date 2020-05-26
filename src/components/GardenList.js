@@ -8,6 +8,7 @@ class GardenList extends Component {
         this.state = {
             showFinishedList: false,
             myGarden: "my garden",
+            today: new Date(),
         };
     }
 
@@ -20,7 +21,7 @@ class GardenList extends Component {
     };
 
     render() {
-        var gardenHeader, plantsList;
+        let gardenHeader, plantsList;
         const today = new Date(); // IMPORTANT: must appear above plants.filter()
         const showGardenList = this.state.showFinishedList;
         const myGarden = this.state.myGarden;
@@ -42,7 +43,7 @@ class GardenList extends Component {
                     startFlower={plant.startFlower}
                     flowerTime={plant.flowerTime}
                     removePlant={this.props.removePlant}
-                    editPlant={this.props.editPlant}
+                    savePlant={this.props.savePlant}
                 />
             );
         });
@@ -58,7 +59,7 @@ class GardenList extends Component {
                     startFlower={plant.startFlower}
                     flowerTime={plant.flowerTime}
                     removePlant={this.props.removePlant}
-                    editPlant={this.props.editPlant}
+                    savePlant={this.props.savePlant}
                 />
             );
         });
