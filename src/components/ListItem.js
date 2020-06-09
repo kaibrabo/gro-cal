@@ -186,8 +186,8 @@ class ListItem extends Component {
         return (
             <li className="list-item">
                 <div className="item" style={strainStyle}>
-                    <div>
-                        <span className="item-name">
+                    <div className="item-name">
+                        <span>
                             <span>{this.props.name + " "}</span>(
                             {this.props.type.substr(0, 1)})
                         </span>

@@ -24,9 +24,14 @@ class AddPlant extends Component {
     }
 
     onSubmit = (e) => {
-        e.preventDefault();
-        this.props.addPlant(this.state);
-        e.target.reset(); // clears inputs after submit
+        if (this.state.startVeg <= this.state.startFlower) {
+            e.preventDefault();
+            this.props.addPlant(this.state);
+            e.target.reset(); // clears inputs after submit
+        } else {
+            e.preventDefault();
+            alert("'Start Veg' date needs to happen before 'Start Flower' date, please use the chronological dates.")
+        }
     }
 
     render() {

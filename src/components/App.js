@@ -68,18 +68,22 @@ class App extends Component {
                     if (doc.exists) {
                         // import inventory
                         inventory = doc.data().inventory;
+                        // if (inventory) {
                         this.setState({ inventory: inventory });
+                        // } else {
+                        //     this.setState({inventory: []});
+                        // }
                     } else {
                         // add inventory to state & fbdb,
                         // & create user in fbdb
+                        this.setState({ inventory: inventory });
                         this.userRef
                             .doc(user.uid)
                             .set({ user: user.email, inventory: inventory });
-                        this.setState({ inventory: inventory });
                     }
                 });
         } else {
-            console.log("Error: GetInventory: No User found")
+            console.log("Error: GetInventory: No User found");
         }
     };
 
@@ -107,11 +111,9 @@ class App extends Component {
     addPlant = async (plant) => {
         if (this.state.user) {
             let plantId = this.guidGenerator();
-            const addInventory = {
-                inventory: [...this.state.inventory, { ...plant, plantId }],
-            };
-            this.setState({ inventory: addInventory });
-            this.userRef.doc(this.state.user.uid).set({ addInventory });
+            const inventory = [...this.state.inventory, { ...plant, plantId }];
+            this.setState({ inventory: inventory });
+            this.userRef.doc(this.state.user.uid).set({ inventory: inventory });
         } else {
             alert("Add Plant error: No User");
         }
@@ -131,10 +133,10 @@ class App extends Component {
                         let newInventory = inventory.filter(
                             (item) => item.plantId !== plantId
                         );
-                        this.setState({ inventory: newInventory });
                         this.userRef
                             .doc(this.state.user.uid)
                             .set({ inventory: newInventory });
+                        this.setState({ inventory: newInventory });
                     }
                 });
         }
@@ -182,7 +184,7 @@ class App extends Component {
     };
 
     render() {
-        const { showAddForm } = this.state;
+        const { showAddForm, inventory } = this.state;
 
         return (
             <Router>
@@ -209,7 +211,7 @@ class App extends Component {
                             exact
                             render={() => (
                                 <GardenList
-                                    plants={this.state.inventory}
+                                    inventory={inventory}
                                     removePlant={this.removePlant}
                                     savePlant={this.savePlant}
                                 />

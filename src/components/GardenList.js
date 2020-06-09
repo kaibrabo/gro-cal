@@ -8,7 +8,6 @@ class GardenList extends Component {
         this.state = {
             showFinishedList: false,
             myGarden: "my garden",
-            today: new Date(),
         };
     }
 
@@ -25,60 +24,73 @@ class GardenList extends Component {
         const today = new Date(); // IMPORTANT: must appear above plants.filter()
         const showGardenList = this.state.showFinishedList;
         const myGarden = this.state.myGarden;
-        const plants = this.props.plants;
+        const plants = this.props.inventory;
 
         // Creates two lists
-        const growing = plants.filter(stillGrowing);
-        const finished = plants.filter(isFinished);
+        if (plants.length > 0) {
+            const growing = plants.filter(stillGrowing);
+            const finished = plants.filter(isFinished);
 
-        // Creating each item
-        const growingPlants = growing.map((plant, index) => {
-            return (
-                <ListItem
-                    key={index}
-                    plantId={plant.plantId}
-                    name={plant.name}
-                    type={plant.type}
-                    startVeg={plant.startVeg}
-                    startFlower={plant.startFlower}
-                    flowerTime={plant.flowerTime}
-                    removePlant={this.props.removePlant}
-                    savePlant={this.props.savePlant}
-                />
-            );
-        });
+            // Creating each item
+            const growingPlants = growing.map((plant, index) => {
+                return (
+                    <ListItem
+                        key={index}
+                        plantId={plant.plantId}
+                        name={plant.name}
+                        type={plant.type}
+                        startVeg={plant.startVeg}
+                        startFlower={plant.startFlower}
+                        flowerTime={plant.flowerTime}
+                        removePlant={this.props.removePlant}
+                        savePlant={this.props.savePlant}
+                    />
+                );
+            });
 
-        const finishedPlants = finished.map((plant, index) => {
-            return (
-                <ListItem
-                    key={index}
-                    plantId={plant.plantId}
-                    name={plant.name}
-                    type={plant.type}
-                    startVeg={plant.startVeg}
-                    startFlower={plant.startFlower}
-                    flowerTime={plant.flowerTime}
-                    removePlant={this.props.removePlant}
-                    savePlant={this.props.savePlant}
-                />
-            );
-        });
+            const finishedPlants = finished.map((plant, index) => {
+                return (
+                    <ListItem
+                        key={index}
+                        plantId={plant.plantId}
+                        name={plant.name}
+                        type={plant.type}
+                        startVeg={plant.startVeg}
+                        startFlower={plant.startFlower}
+                        flowerTime={plant.flowerTime}
+                        removePlant={this.props.removePlant}
+                        savePlant={this.props.savePlant}
+                    />
+                );
+            });
 
-        // sets display for Garden list & header title
-        if (showGardenList) {
+            // sets display for Garden list & header title
+            if (showGardenList) {
+                gardenHeader = (
+                    <button className="garden-list" onClick={this.showGarden}>
+                        {myGarden}
+                    </button>
+                );
+                plantsList = <ul className="list"> {finishedPlants} </ul>;
+            } else {
+                gardenHeader = (
+                    <button className="garden-list" onClick={this.showFinished}>
+                        {myGarden}
+                    </button>
+                );
+                plantsList = <ul className="list"> {growingPlants} </ul>;
+            }
+        } else {
             gardenHeader = (
                 <button className="garden-list" onClick={this.showGarden}>
                     {myGarden}
                 </button>
             );
-            plantsList = <ul className="list"> {finishedPlants} </ul>;
-        } else {
-            gardenHeader = (
-                <button className="garden-list" onClick={this.showFinished}>
-                    {myGarden}
-                </button>
+            plantsList = (
+                <ul className="list">
+                    <li>Add a new Plant!</li>
+                </ul>
             );
-            plantsList = <ul className="list"> {growingPlants} </ul>;
         }
 
         function stillGrowing(plant) {
