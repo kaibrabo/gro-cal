@@ -211,6 +211,12 @@ class App extends Component {
                             exact
                             render={() => (
                                 <GardenList
+                                    onAddPlant={() =>
+                                        this.setState({
+                                            showAddForm: true,
+                                            addItem: true,
+                                        })
+                                    }
                                     inventory={inventory}
                                     removePlant={this.removePlant}
                                     savePlant={this.savePlant}

@@ -13,9 +13,9 @@ class Header extends Component {
                             <h1>BL</h1>
                             <p>blumelist</p>
                         </div>
-                        <div className="add-plant-btn">
+                        {/* <div className="add-plant-btn">
                             <button onClick={this.props.onAddPlant}>add</button>
-                        </div>
+                        </div> */}
                         <div className="signIn-btn">
                             {this.props.user ? (
                                 <div>
