@@ -1,0 +1,300 @@
+* {
+    margin: 0 0;
+    padding: 0 0;
+}
+
+html {
+    width: 100%;
+    scroll-behavior: smooth;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
+}
+
+button {
+    background: inherit;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+}
+
+.body {
+    width: 100%;
+    text-align: center;
+    font-family: "Open Sans", sans-serif;
+    font-size: 20px;
+    display: flex;
+    flex-direction: column;
+    background: #5686d3;
+    color: white;
+}
+
+.landing {
+    width: 100%;
+    background: linear-gradient(
+        rgba(66, 135, 245, 0.65),
+        rgba(66, 135, 245, 1) 50%
+    );
+    background-position: center;
+    background-size: cover;
+    filter: grayscale(30%);
+    color: white;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 70vh;
+}
+
+header {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    text-transform: capitalize;
+    padding: 10px 0;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: 700;
+    padding: 0 20px;
+    letter-spacing: 4px;
+}
+
+.navbar {
+    list-style-type: none;
+    display: flex;
+    justify-content: space-around;
+    width: 30%;
+    padding: 5px 0;
+    font-size: 14px;
+    letter-spacing: 2px;
+}
+
+.login {
+    padding: 5px 20px;
+    font-size: 14px;
+    letter-spacing: 2px;
+}
+
+.intro {
+    text-transform: capitalize;
+    font-size: 30px;
+    letter-spacing: 4px;
+}
+
+.section_title {
+    font-size: 30px;
+}
+
+.slogan {
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    letter-spacing: 3px;
+}
+
+.email_capture {
+    width: 100%;
+    padding: 0 0 50px;
+    font-size: 14px;
+    letter-spacing: 2px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 100px;
+}
+
+/* UnComment when add form  */
+
+/* ._form {
+  width: 200px;
+  height: 30px;
+  margin: 10px auto;
+  background-color: white;
+}
+
+form {
+  display: flex;
+  justify-content: space-between;
+}
+
+._form input,
+._form button {
+  border: none;
+  height: 30px;
+}
+
+._form input {
+  width: 90%;
+  padding: 0 0 0 7px;
+  font-style: italic;
+}
+
+._form button {
+  padding: 0 7px 0 0;
+} */
+
+.how_it_works {
+    background: white;
+    color: #222;
+}
+
+.body_section {
+    width: 100%;
+    font-size: 14px;
+    padding: 80px 0 40px;
+}
+
+.body_section p {
+    padding: 0 30px;
+}
+
+.section_title {
+    margin: 0 0 20px;
+}
+
+.intro_body {
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.how_it_works_grid {
+    display: flex;
+    flex-direction: column;
+}
+
+.how_it_works_grid_item {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.how_it_works_point {
+    margin: 40px auto 5px;
+    width: 45%;
+}
+
+.how_it_works_body {
+    margin: 20px auto 30px;
+}
+
+.how_it_works_title {
+    font-size: 18px;
+    margin: 10px auto;
+}
+
+.contact_info {
+    width: 50%;
+    margin: 0 auto;
+    text-align: left;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.address p,
+.phone p {
+    margin: 7px 0;
+    padding: 0;
+}
+
+/* mobile phones */
+@media screen and (max-width: 430px) {
+    body {
+        font-size: 16px;
+    }
+
+    .landing {
+        height: 70vh;
+    }
+
+    header {
+        padding: 35px 0 0;
+    }
+
+    .logo {
+        font-size: 24px;
+    }
+
+    .navbar,
+    .login {
+        font-size: 14px;
+        font-weight: 700;
+        padding: 5px 20px;
+        flex-direction: column;
+    }
+
+    .navbar li {
+        text-align: right;
+        margin: 3px 0;
+    }
+
+    .intro {
+        font-size: 28px;
+        letter-spacing: 3px;
+    }
+
+    .slogan {
+        font-size: 18px;
+        letter-spacing: 2px;
+        height: 90px;
+    }
+
+    .email_capture {
+        font-size: 12px;
+    }
+
+    .body_section {
+        padding: 40px 0 40px;
+    }
+
+    .how_it_works {
+        font-size: 12px;
+        width: 100%;
+        color: #444;
+    }
+
+    .section_title {
+        font-size: 24px;
+    }
+
+    .contact_info {
+        flex-direction: column;
+    }
+
+    .address,
+    .phone {
+        padding: 0 20px;
+    }
+
+    .address p:first-child,
+    .phone p:first-child {
+        font-weight: 700;
+    }
+}
+
+@media screen and (min-width: 700px) and (max-width: 900px) {
+    .landing {
+        height: 90vh;
+    }
+
+    .email_capture {
+        padding: 30px 0;
+    }
+}
+
+@media screen and (min-width: 430px) and (max-width: 700px) {
+    .navbar {
+        width: 40%;
+    }
+}

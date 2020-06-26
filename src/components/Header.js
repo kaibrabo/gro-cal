@@ -1,21 +1,25 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router } from "react-router-dom";
 import "./Header.css";
-import { withRouter } from "react-router";
 
 class Header extends Component {
     render() {
         return (
-            <Router>
-                <div className="header-component">
-                    <div className="header-container">
-                        <div className="header-title">
-                            <h1>BL</h1>
-                            <p>blumelist</p>
+            <div className="header-component">
+                <div className="header-container">
+                    <div className="header-title">
+                        <h1>BL</h1>
+                        <p>blumelist</p>
+                    </div>
+                    <div className="links">
+                        <div className="home">
+                            <button onClick={this.props.homeRoute}>Home</button>
                         </div>
-                        {/* <div className="add-plant-btn">
-                            <button onClick={this.props.onAddPlant}>add</button>
-                        </div> */}
+                        <div className="news">
+                            <button onClick={this.props.newsRoute}>News</button>
+                        </div>
+                        <div className="list">
+                            <button onClick={this.props.listRoute}>List</button>
+                        </div>
                         <div className="signIn-btn">
                             {this.props.user ? (
                                 <div>
@@ -23,20 +27,18 @@ class Header extends Component {
                                         <span>{this.props.user.displayName}</span>
                                     </div>
                                     <button onClick={this.props.signOut}>
-                                        sign out
+                                        Logout
                                     </button>
                                 </div>
                             ) : (
-                                <button onClick={this.props.signIn}>
-                                    sign in
-                                </button>
+                                <button onClick={this.props.signIn}>Login</button>
                             )}
                         </div>
                     </div>
                 </div>
-            </Router>
+            </div>
         );
     }
 }
 
-export default withRouter(Header);
+export default Header;

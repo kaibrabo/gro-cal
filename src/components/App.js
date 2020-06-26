@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+// import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import firebase from "../firebase";
+import Landing from "./Landing";
 import Header from "./Header";
 import AddPlant from "./AddPlant";
 import GardenList from "./GardenList";
@@ -16,6 +17,11 @@ class App extends Component {
             inventory: [],
             showAddForm: false,
             user: null,
+            routes: {
+                home: true,
+                news: false,
+                list: false,
+            },
         };
 
         this.fs = firebase.firestore();
@@ -184,48 +190,77 @@ class App extends Component {
     };
 
     render() {
-        const { showAddForm, inventory } = this.state;
+        const { showAddForm, inventory, routes } = this.state;
+        let view = <Landing />;
+        if (!routes.home) {
+            if (routes.news) {
+                view = (<div>NEWS</div>);
+            } else if (routes.list) {
+                view = (
+                    <div>
+                        {showAddForm ? (
+                            <AddPlant
+                                addPlant={this.addPlant}
+                                onClose={() =>
+                                    this.setState({ showAddForm: false })
+                                }
+                            />
+                        ) : null}
+                        <GardenList
+                            onAddPlant={() =>
+                                this.setState({
+                                    showAddForm: true,
+                                    addItem: true,
+                                })
+                            }
+                            inventory={inventory}
+                            removePlant={this.removePlant}
+                            savePlant={this.savePlant}
+                        />
+                    </div>
+                );
+            }
+        } 
+        // else if (routes.home) {
+        //     view = <Landing />;
+        // }
 
         return (
-            <Router>
-                <div className="App">
-                    <Header
-                        onAddPlant={() =>
-                            this.setState({ showAddForm: true, addItem: true })
-                        }
-                        signIn={this.signIn}
-                        signOut={this.signOut}
-                        user={this.state.user}
-                    />
-                    {showAddForm ? (
-                        <AddPlant
-                            addPlant={this.addPlant}
-                            onClose={() =>
-                                this.setState({ showAddForm: false })
-                            }
-                        />
-                    ) : null}
-                    <Switch>
-                        <Route
-                            path="/"
-                            exact
-                            render={() => (
-                                <GardenList
-                                    onAddPlant={() =>
-                                        this.setState({
-                                            showAddForm: true,
-                                            addItem: true,
-                                        })
-                                    }
-                                    inventory={inventory}
-                                    removePlant={this.removePlant}
-                                    savePlant={this.savePlant}
-                                />
-                            )}
-                        />
-                    </Switch>
-                </div>
-            </Router>
+            <div className="App">
+                <Header
+                    homeRoute={() => 
+                        this.setState({
+                            routes: {
+                                home: true,
+                                news: false,
+                                list: false,
+                            },
+                        })
+                    }
+                    newsRoute={() =>
+                        this.setState({
+                            routes: {
+                                home: false,
+                                news: true,
+                                list: false,
+                            },
+                        })
+                    }
+                    listRoute={() =>
+                        this.setState({
+                            routes: {
+                                home: false,
+                                news: false,
+                                list: true,
+                            },
+                        })
+                    }
+                    signIn={this.signIn}
+                    signOut={this.signOut}
+                    user={this.state.user}
+                />
+                {view}
+            </div>
         );
     }
 }
