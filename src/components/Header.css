@@ -45,6 +45,15 @@
     padding: 10px 5px;
 }
 
+.login-link {
+    width: 130px;
+}
+
+.loggedIn {
+    display: flex;
+    justify-content: space-evenly;
+}
+
 /* .signIn-btn {
 } */
 

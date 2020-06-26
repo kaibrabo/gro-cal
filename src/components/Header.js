@@ -11,27 +11,31 @@ class Header extends Component {
                         <p>blumelist</p>
                     </div>
                     <div className="links">
-                        <div className="home">
+                        <div className="home-link">
                             <button onClick={this.props.homeRoute}>Home</button>
                         </div>
-                        <div className="news">
+                        <div className="news-link">
                             <button onClick={this.props.newsRoute}>News</button>
                         </div>
-                        <div className="list">
+                        <div className="list-link">
                             <button onClick={this.props.listRoute}>List</button>
                         </div>
-                        <div className="signIn-btn">
+                        <div className="login-link">
                             {this.props.user ? (
-                                <div>
+                                <div className="loggedIn">
                                     <div>
-                                        <span>{this.props.user.displayName}</span>
+                                        <span>
+                                            {this.props.user.displayName.split(" ")[0]}
+                                        </span>
                                     </div>
                                     <button onClick={this.props.signOut}>
                                         Logout
                                     </button>
                                 </div>
                             ) : (
-                                <button onClick={this.props.signIn}>Login</button>
+                                <button onClick={this.props.signIn}>
+                                    Login
+                                </button>
                             )}
                         </div>
                     </div>

@@ -8,92 +8,53 @@ class Landing extends Component {
                 <section className="landing">
                     <div className="intro">
                         <span>introducing </span>
-                        <span style={{ fontWeight: 700 }}>Blumelist</span>
+                        <span style={{ fontWeight: 800 }}>Blumelist</span>
                     </div>
                     <div className="slogan">
-                        <p>Best Resource for cannabis enthusiats</p>
-                    </div>
-                    <div className="email_capture">
-                        <p>
-                            Join millions of users <br />
-                            and pay with ease
-                        </p>
-                        <p>Start: 01.01.20</p>
-
-                        {/* <!-- <div className="_form">
-                            <form>
-                                <input type="text" name="email" placeholder="user@mail.com" />
-                                <button type="submit" value="">
-                                <i className="fas fa-paper-plane"></i>
-                                </button>
-                            </form>
-                        </div> --> */}
+                        <p>Best resource for cannabis enthusiats</p>
+                        <p>Grow with confidence</p>
                     </div>
                 </section>
 
-                <section className="body_section how_it_works" id="how_it_works">
+                <section
+                    className="body_section how_it_works"
+                    id="how_it_works"
+                >
                     <p className="intro section_title">How It Works</p>
 
                     <p className="intro_body">
-                        DiWallet is a peer-to-peer (P2P) digital wallet allowing
-                        users to exchange money with virtually anyone
+                        Blumelist is a platform to help keep track of your
+                        plants throughout their grow cycles.
                     </p>
 
                     <div className="how_it_works_grid">
                         <div className="how_it_works_grid_item">
                             <div className="how_it_works_point">
-                                <i className="fas fa-money-check-alt fa-3x"></i>
+                                <i className="fas fa-credit-card fa-3x"></i>
                                 <div className="how_it_works_body">
                                     <p className="how_it_works_title">
-                                        Make and receive payments
+                                        Understand how your plants grows using <strong style={{fontSize: 18}}>List</strong>
                                     </p>
                                     <p>
-                                        Users can make and receive payments
-                                        using their debit card or bank account
+                                        Each component card gives individual
+                                        plant or strain data,
+                                        allowing you to make the correct
+                                        changes.
                                     </p>
                                 </div>
                             </div>
 
                             <div className="how_it_works_point">
-                                <i className="fas fa-user-friends fa-3x"></i>
+                                <i className="fas fa-seedling fa-3x"></i>
                                 <div className="how_it_works_body">
                                     <p className="how_it_works_title">
-                                        Go ahead, pay your way
+                                        Know when your plants are growing, <br></br>
+                                        and when they flower.
                                     </p>
                                     <p>
-                                        Pay for dinner, split a trip, sponsor a
-                                        project or just show someone you care.
-                                        Send money with a few taps and done
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="how_it_works_grid_item">
-                            <div className="how_it_works_point">
-                                <i className="fas fa-balance-scale fa-3x"></i>
-                                <div className="how_it_works_body">
-                                    <p className="how_it_works_title">
-                                        Complex finance made accessible
-                                    </p>
-                                    <p>
-                                        DiWallet will automatically keep track
-                                        of balance, notify users of payments,
-                                        and manage contracts
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div className="how_it_works_point">
-                                <i className="fas fa-hand-holding-usd fa-3x"></i>
-                                <div className="how_it_works_body">
-                                    <p className="how_it_works_title">
-                                        Payback over time
-                                    </p>
-                                    <p>
-                                        You can add set payment options and
-                                        interest when lending out money to
-                                        ensure and establish rapport
+                                        With a little information at hand, it
+                                        makes it easy to feed your plants the
+                                        right nutrients for varying growth.
                                     </p>
                                 </div>
                             </div>
@@ -101,29 +62,58 @@ class Landing extends Component {
 
                         <div className="how_it_works_grid_item">
                             <div className="how_it_works_point">
-                                <i className="fas fa-university fa-3x"></i>
+                                <i className="fas fa-clipboard-list fa-3x"></i>
                                 <div className="how_it_works_body">
                                     <p className="how_it_works_title">
-                                        Transfer money to & from your bank
+                                    <strong style={{fontSize: 18}}>List</strong> and manage multiple strains and types
                                     </p>
                                     <p>
-                                        Moving your money between DiWallet and
-                                        your bank is quick and secure
+                                        Blumelist makes keeping your garden
+                                        organized by knowing the plants
+                                        attibutes, flowering times and how long
+                                        it will take in each stage.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div className="how_it_works_point">
+                                <i className="fas fa-chart-bar fa-3x"></i>
+                                <div className="how_it_works_body">
+                                    <p className="how_it_works_title">
+                                        Review your progress
+                                    </p>
+                                    <p>
+                                        You can access previous plants with a
+                                        'finished garden' tab. This allows you
+                                        to see patterns and helps make future
+                                        grows easier.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="how_it_works_grid_item">
+                            <div className="how_it_works_point">
+                                <i className="far fa-newspaper fa-3x"></i>
+                                <div className="how_it_works_body">
+                                    <p className="how_it_works_title">
+                                        Keep up to date with Blumelist <strong style={{fontSize: 18}}>News</strong>
+                                    </p>
+                                    <p>
+                                        Blumelist News is a resource for anyoen interested in Cannabis plants and products.  Industry experts will share the best content and cover exclusive products and events.
                                     </p>
                                 </div>
                             </div>
 
                             <div className="how_it_works_point">
                                 {/* <!-- <i className="fas fa-user-friends fa-3x"></i> --> */}
-                                <i className="fas fa-network-wired fa-3x"></i>
+                                <i className="fas fa-mobile-alt fa-3x"></i>
                                 <div className="how_it_works_body">
                                     <p className="how_it_works_title">
-                                        AI Credit & Blockchain Technology
+                                        Share your garden
                                     </p>
                                     <p>
-                                        Understanding user habits and secure
-                                        payments create more successful
-                                        transactions
+                                        You can share your garden across all platforms due to the Progressive web app Blumelist is built on.  Simply open Blumelist.com on Safari for Iphone/Ipad, click the 'Share/Export' icon, and choose "Add to Homescreen"
                                     </p>
                                 </div>
                             </div>
@@ -137,7 +127,7 @@ class Landing extends Component {
                     <div className="contact_info">
                         <div className="address">
                             <p>Address:</p>
-                            <p>DiWallet, Inc.</p>
+                            <p>Blumelist, Inc.</p>
                             <p>P.O. Box</p>
                             <p>San Rafael, CA 94901</p>
                         </div>

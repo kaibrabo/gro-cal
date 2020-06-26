@@ -194,7 +194,7 @@ class App extends Component {
         let view = <Landing />;
         if (!routes.home) {
             if (routes.news) {
-                view = (<div>NEWS</div>);
+                view = <div>NEWS</div>;
             } else if (routes.list) {
                 view = (
                     <div>
@@ -220,15 +220,12 @@ class App extends Component {
                     </div>
                 );
             }
-        } 
-        // else if (routes.home) {
-        //     view = <Landing />;
-        // }
+        }
 
         return (
             <div className="App">
                 <Header
-                    homeRoute={() => 
+                    homeRoute={() =>
                         this.setState({
                             routes: {
                                 home: true,
