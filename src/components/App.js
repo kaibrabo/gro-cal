@@ -2,6 +2,7 @@ import React, { Component } from "react";
 // import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import firebase from "../firebase";
 import Landing from "./Landing";
+import News from "./News";
 import Header from "./Header";
 import AddPlant from "./AddPlant";
 import GardenList from "./GardenList";
@@ -17,11 +18,13 @@ class App extends Component {
             inventory: [],
             showAddForm: false,
             user: null,
+            news: null,
             routes: {
                 home: true,
                 news: false,
                 list: false,
             },
+            hasErrors: false
         };
 
         this.fs = firebase.firestore();
@@ -30,6 +33,8 @@ class App extends Component {
     }
 
     componentDidMount() {
+        this.getNews();
+
         this.auth
             .getRedirectResult()
             .then((result) => {
@@ -64,7 +69,16 @@ class App extends Component {
         });
     }
 
-    getInventory = async (user) => {
+    getNews = () => {
+        fetch(
+            "https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@blumelist"
+        )
+            .then((res) => res.json())
+            .then((data) => this.setState({ news: data.items }))
+            .catch(() => this.setState({ hasErrors: true }));
+    };
+
+    getInventory = (user) => {
         if (user) {
             let inventory = [];
             this.userRef
@@ -74,11 +88,7 @@ class App extends Component {
                     if (doc.exists) {
                         // import inventory
                         inventory = doc.data().inventory;
-                        // if (inventory) {
                         this.setState({ inventory: inventory });
-                        // } else {
-                        //     this.setState({inventory: []});
-                        // }
                     } else {
                         // add inventory to state & fbdb,
                         // & create user in fbdb
@@ -190,11 +200,11 @@ class App extends Component {
     };
 
     render() {
-        const { showAddForm, inventory, routes } = this.state;
+        const { showAddForm, inventory, routes, news } = this.state;
         let view = <Landing />;
         if (!routes.home) {
             if (routes.news) {
-                view = <div>NEWS</div>;
+                view = <News news={news} />;
             } else if (routes.list) {
                 view = (
                     <div>

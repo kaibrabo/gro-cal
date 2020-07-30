@@ -11,8 +11,7 @@ class Landing extends Component {
                         <span style={{ fontWeight: 800 }}>Blumelist</span>
                     </div>
                     <div className="slogan">
-                        <p>Best resource for cannabis enthusiats</p>
-                        <p>Grow with confidence</p>
+                        <p>grow with confidence</p>
                     </div>
                 </section>
 
@@ -33,13 +32,15 @@ class Landing extends Component {
                                 <i className="fas fa-credit-card fa-3x"></i>
                                 <div className="how_it_works_body">
                                     <p className="how_it_works_title">
-                                        Understand how your plants grows using <strong style={{fontSize: 18}}>List</strong>
+                                        Understand how your plants grows using{" "}
+                                        <strong style={{ fontSize: 18 }}>
+                                            List
+                                        </strong>
                                     </p>
                                     <p>
                                         Each component card gives individual
-                                        plant or strain data,
-                                        allowing you to make the correct
-                                        changes.
+                                        plant or strain data, allowing you to
+                                        make the correct changes.
                                     </p>
                                 </div>
                             </div>
@@ -48,7 +49,8 @@ class Landing extends Component {
                                 <i className="fas fa-seedling fa-3x"></i>
                                 <div className="how_it_works_body">
                                     <p className="how_it_works_title">
-                                        Know when your plants are growing, <br></br>
+                                        Know when your plants are growing,{" "}
+                                        <br></br>
                                         and when they flower.
                                     </p>
                                     <p>
@@ -65,7 +67,10 @@ class Landing extends Component {
                                 <i className="fas fa-clipboard-list fa-3x"></i>
                                 <div className="how_it_works_body">
                                     <p className="how_it_works_title">
-                                    <strong style={{fontSize: 18}}>List</strong> and manage multiple strains and types
+                                        <strong style={{ fontSize: 18 }}>
+                                            List
+                                        </strong>{" "}
+                                        and manage multiple strains and types
                                     </p>
                                     <p>
                                         Blumelist makes keeping your garden
@@ -97,10 +102,17 @@ class Landing extends Component {
                                 <i className="far fa-newspaper fa-3x"></i>
                                 <div className="how_it_works_body">
                                     <p className="how_it_works_title">
-                                        Keep up to date with Blumelist <strong style={{fontSize: 18}}>News</strong>
+                                        Keep up to date with Blumelist{" "}
+                                        <strong style={{ fontSize: 18 }}>
+                                            News
+                                        </strong>
                                     </p>
                                     <p>
-                                        Blumelist News is a resource for anyoen interested in Cannabis plants and products.  Industry experts will share the best content and cover exclusive products and events.
+                                        Blumelist News is a resource for anyoen
+                                        interested in Cannabis plants and
+                                        products. Industry experts will share
+                                        the best content and cover exclusive
+                                        products and events.
                                     </p>
                                 </div>
                             </div>
@@ -113,7 +125,12 @@ class Landing extends Component {
                                         Share your garden
                                     </p>
                                     <p>
-                                        You can share your garden across all platforms due to the Progressive web app Blumelist is built on.  Simply open Blumelist.com on Safari for Iphone/Ipad, click the 'Share/Export' icon, and choose "Add to Homescreen"
+                                        You can share your garden across all
+                                        platforms due to the Progressive web app
+                                        Blumelist is built on. Simply open
+                                        Blumelist.com on Safari for Iphone/Ipad,
+                                        click the 'Share/Export' icon, and
+                                        choose "Add to Homescreen"
                                     </p>
                                 </div>
                             </div>
@@ -126,16 +143,16 @@ class Landing extends Component {
 
                     <div className="contact_info">
                         <div className="address">
-                            <p>Address:</p>
-                            <p>Blumelist, Inc.</p>
-                            <p>P.O. Box</p>
+                            <p>Blumelist</p>
                             <p>San Rafael, CA 94901</p>
                         </div>
                         <div className="phone">
                             <p>Phone:</p>
                             <p>415.377.6516</p>
+                        </div>
+                        <div className="phone">
                             <p>Email:</p>
-                            <p>tbd</p>
+                            <p>blumelist@gmail.com</p>
                         </div>
                     </div>
                 </section>
