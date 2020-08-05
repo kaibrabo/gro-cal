@@ -26,6 +26,8 @@ class Landing extends Component {
                         plants throughout their grow cycles.
                     </p>
 
+                    <p>Start by signing-in using the <strong>Login</strong> to create a <strong>List</strong></p>
+
                     <div className="how_it_works_grid">
                         <div className="how_it_works_grid_item">
                             <div className="how_it_works_point">

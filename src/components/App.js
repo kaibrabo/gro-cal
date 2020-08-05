@@ -34,7 +34,7 @@ class App extends Component {
 
     componentDidMount() {
         this.getNews();
-
+        const returnToRouteState = this.state.routes;
         this.auth
             .getRedirectResult()
             .then((result) => {
@@ -60,7 +60,7 @@ class App extends Component {
         this.auth.onAuthStateChanged(async (user) => {
             if (user) {
                 // User is signed in.
-                this.setState({ user: user });
+                this.setState({ user });
                 this.getInventory(user);
             } else {
                 // User is signed out.
@@ -105,7 +105,7 @@ class App extends Component {
 
     signIn = () => {
         const provider = new firebase.auth.GoogleAuthProvider();
-        firebase.auth().signInWithRedirect(provider);
+        this.auth.signInWithRedirect(provider);
     };
 
     signOut = () => {
