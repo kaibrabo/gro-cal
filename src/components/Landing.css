@@ -210,6 +210,11 @@ form {
 
 /* mobile phones */
 @media screen and (max-width: 450px) {
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
     body {
         font-size: 16px;
     }
@@ -275,7 +280,7 @@ form {
     }
 
     .contact_info {
-        flex-direction: row;
+        flex-direction: column;
     }
 
     .address,
@@ -291,8 +296,8 @@ form {
 
 @media screen and (min-width: 700px) and (max-width: 900px) {
     .landing {
-        height: 30vh;
-        justify-content: none;
+        height: 40vh;
+        justify-content: space-evenly;
         padding: 0;
     }
 
@@ -308,8 +313,12 @@ form {
         font-size: 24px;
     }
 
-    .email_capture {
-        padding: 30px 0;
+    .how_it_works {
+        padding: 20px 0;
+    }
+
+    .contact_info {
+        width: 80%;
     }
 }
 

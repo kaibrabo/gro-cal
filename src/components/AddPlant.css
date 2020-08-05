@@ -1,3 +1,8 @@
+.add-plant-body {
+    background: white;
+    color: black;
+}
+
 table {
     width: 80%;
     max-width: 400px;
@@ -16,8 +21,8 @@ td {
 
 .input-field {
     width: 50%;
-    text-align: left;  
-} 
+    text-align: left;
+}
 
 input {
     width: 100%;
@@ -25,16 +30,16 @@ input {
     margin: 0;
     border: 1px solid white;
     border-bottom: 1px solid #ccc;
-    font-family: 'Open Sans', sans-serif;
+    font-family: "Open Sans", sans-serif;
     font-size: 16px;
     /* border-radius: 3px; */
 }
 
 /* removes yellow autocomplete background in input */
 input:-webkit-autofill,
-input:-webkit-autofill:hover, 
-input:-webkit-autofill:focus, 
-input:-webkit-autofill:active  {
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
     -webkit-box-shadow: 0 0 0 30px white inset !important;
 }
 

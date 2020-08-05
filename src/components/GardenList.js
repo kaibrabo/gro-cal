@@ -118,7 +118,7 @@ class GardenList extends Component {
         }
 
         return (
-            <div>
+            <div className="body garden-body">
                 <div className="all-garden-lists">{gardenHeader}</div>
                 <div className="add-plant-btn">
                     <button onClick={this.props.onAddPlant}>add</button>

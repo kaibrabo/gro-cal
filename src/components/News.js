@@ -13,7 +13,7 @@ class News extends Component {
     render() {
         if (this.props.news) {
             return (
-                <div>
+                <div className="body news-body">
                     <div>
                         <a
                             href={this.props.news[0].link}

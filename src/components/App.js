@@ -131,7 +131,7 @@ class App extends Component {
             this.setState({ inventory: inventory });
             this.userRef.doc(this.state.user.uid).set({ inventory: inventory });
         } else {
-            alert("Add Plant error: No User");
+            alert("Please Login to add a plant to List");
         }
     };
 
@@ -207,7 +207,7 @@ class App extends Component {
                 view = <News news={news} />;
             } else if (routes.list) {
                 view = (
-                    <div>
+                    <div className="body">
                         {showAddForm ? (
                             <AddPlant
                                 addPlant={this.addPlant}

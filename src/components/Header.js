@@ -25,12 +25,18 @@ class Header extends Component {
                                 <div className="loggedIn">
                                     <div>
                                         <span>
-                                            {this.props.user.displayName.split(" ")[0]}
+                                            {
+                                                this.props.user.displayName.split(
+                                                    " "
+                                                )[0]
+                                            }
                                         </span>
                                     </div>
-                                    <button onClick={this.props.signOut}>
-                                        Logout
-                                    </button>
+                                    <div>
+                                        <button onClick={this.props.signOut}>
+                                            Logout
+                                        </button>
+                                    </div>
                                 </div>
                             ) : (
                                 <button onClick={this.props.signIn}>

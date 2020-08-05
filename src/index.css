@@ -7,7 +7,7 @@
   background: inherit;
 }
 
-body, h1, button {
+body, h1 {
   margin: 0;
   padding: 0;
   font-family: 'Open Sans', sans-serif;

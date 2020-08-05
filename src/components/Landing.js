@@ -40,7 +40,8 @@ class Landing extends Component {
                                     <p>
                                         Each component card gives individual
                                         plant or strain data, allowing you to
-                                        make the correct changes.
+                                        precisely keep track of watering and
+                                        feed.
                                     </p>
                                 </div>
                             </div>
@@ -73,10 +74,10 @@ class Landing extends Component {
                                         and manage multiple strains and types
                                     </p>
                                     <p>
-                                        Blumelist makes keeping your garden
-                                        organized by knowing the plants
-                                        attibutes, flowering times and how long
-                                        it will take in each stage.
+                                        Blumelist keeps your garden organized by
+                                        displaying the plants attibutes,
+                                        flowering times and how long it will
+                                        take in each stage.
                                     </p>
                                 </div>
                             </div>
@@ -88,10 +89,11 @@ class Landing extends Component {
                                         Review your progress
                                     </p>
                                     <p>
-                                        You can access previous plants with a
-                                        'finished garden' tab. This allows you
-                                        to see patterns and helps make future
-                                        grows easier.
+                                        You can access previous plants with the{" "}
+                                        {/* ^^ add no-break space JSX */}
+                                        <strong>'finished garden'</strong> tab.
+                                        This allows you to see patterns and
+                                        helps make future grows easier.
                                     </p>
                                 </div>
                             </div>
@@ -108,10 +110,11 @@ class Landing extends Component {
                                         </strong>
                                     </p>
                                     <p>
-                                        Blumelist News is a resource for anyoen
+                                        Blumelist News is a resource for anyone
                                         interested in Cannabis plants and
                                         products. Industry experts will share
-                                        the best content and cover exclusive
+                                        their experience to create the best
+                                        content, while reviewing exclusive
                                         products and events.
                                     </p>
                                 </div>
@@ -122,12 +125,11 @@ class Landing extends Component {
                                 <i className="fas fa-mobile-alt fa-3x"></i>
                                 <div className="how_it_works_body">
                                     <p className="how_it_works_title">
-                                        Share your garden
+                                        Bring your garden with you
                                     </p>
                                     <p>
                                         You can share your garden across all
-                                        platforms due to the Progressive web app
-                                        Blumelist is built on. Simply open
+                                        platforms because Blumelist is a PWA. Simply open
                                         Blumelist.com on Safari for Iphone/Ipad,
                                         click the 'Share/Export' icon, and
                                         choose "Add to Homescreen"

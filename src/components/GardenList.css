@@ -1,3 +1,8 @@
+.garden-body {
+    background: white;
+    color: black;
+}
+
 .all-garden-lists {
     width: 100%;
     height: 50px;

@@ -37,7 +37,7 @@ class AddPlant extends Component {
     render() {
         const {onClose} = this.props;
         return (
-            <div>
+            <div className="add-plant-body">
                 <h2>Add New Plant</h2>
                 <form onSubmit={this.onSubmit}>
                     <table>
