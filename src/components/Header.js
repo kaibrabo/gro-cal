@@ -7,8 +7,7 @@ class Header extends Component {
             <div className="header-component">
                 <div className="header-container">
                     <div className="header-title">
-                        <h1>BL</h1>
-                        <p>blumelist</p>
+                        <p>Blumelist</p>
                     </div>
                     <div className="links">
                         <div className="home-link">
