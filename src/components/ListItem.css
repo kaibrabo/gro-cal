@@ -1,6 +1,5 @@
 .list-item {
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-    border-radius: 4px;
     width: 100%;
     max-width: 400px;
     margin: 10px auto;
@@ -17,7 +16,6 @@
     height: 35px;
     margin: 0 auto;
     padding: 0;
-    border-radius: 3px;
     color: rgb(255, 255, 255);
     display: flex;
     justify-content: space-between;
@@ -73,7 +71,6 @@
 .time-bar {
     width: 100%;
     margin: 0 auto 30px;
-    border-radius: 4px;
     height: 30px;
     color: rgb(0, 0, 0);
 }
@@ -99,5 +96,4 @@
     background-color: rgb(29, 29, 29, 0.5);
     padding: 5px 0;
     height: 20px;
-    border-radius: 0 0 2px 2px;
 }
