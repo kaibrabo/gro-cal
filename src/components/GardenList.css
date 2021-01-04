@@ -1,6 +1,7 @@
 .garden-body {
-    background: white;
+    background: #e0e1e2;
     color: black;
+    height: 100vh;
 }
 
 .all-garden-lists {
@@ -17,8 +18,8 @@
 }
 
 .add-plant-btn button {
-    border: 1px solid rgb(192, 192, 192);
+    background-color: white;
     border-radius: 3px;
-    box-shadow: 2px 1px #aaaaaa;
-    padding: 0 20px 2px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    padding: 3px 20px 5px;
 }

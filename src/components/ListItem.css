@@ -1,8 +1,5 @@
 .list-item {
-    /* border-right: 1px solid rgb(175, 175, 175);
-    border-left: 1px solid rgb(175, 175, 175); */
-    border: 1px solid rgb(200, 200, 200);
-
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
     border-radius: 4px;
     width: 100%;
     max-width: 400px;
@@ -12,6 +9,7 @@
     flex-direction: column;
     text-align: center;
     max-height: 400px;
+    background-color: white;
 }
 
 .item {
@@ -37,7 +35,7 @@
 }
 
 .item-table {
-    width: 100%;    
+    width: 100%;
 }
 
 .item-table table {
@@ -77,7 +75,7 @@
     margin: 0 auto 30px;
     border-radius: 4px;
     height: 30px;
-    color: rgb(0,0,0);
+    color: rgb(0, 0, 0);
 }
 
 .total-time {
@@ -86,7 +84,7 @@
 }
 
 .veg-time {
-    background-color: rgb(90, 153, 225,0.5);
+    background-color: rgb(90, 153, 225, 0.5);
     padding: 5px;
     height: 20px;
 }
@@ -103,4 +101,3 @@
     height: 20px;
     border-radius: 0 0 2px 2px;
 }
-

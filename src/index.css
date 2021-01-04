@@ -7,9 +7,10 @@
   background: inherit;
 }
 
-body, h1 {
+body, h1, .root {
   margin: 0;
   padding: 0;
+  height: 100vh;
   font-family: 'Open Sans', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
