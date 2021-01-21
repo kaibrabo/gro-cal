@@ -89,6 +89,17 @@ class GardenList extends Component {
             plantsList = (
                 <ul className="list">
                     <li>Add a new Plant!</li>
+                    <ListItem
+                    // key={index}
+                    // plantId={plant.plantId}
+                    // name={plant.name}
+                    // type={plant.type}
+                    // startVeg={plant.startVeg}
+                    // startFlower={plant.startFlower}
+                    // flowerTime={plant.flowerTime}
+                    // removePlant={this.props.removePlant}
+                    // savePlant={this.props.savePlant}
+                    />
                 </ul>
             );
         }

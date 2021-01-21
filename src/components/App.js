@@ -1,11 +1,11 @@
-import React, { Component } from "react";
-// import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import React, { Component, useEffect } from "react";
 import firebase from "../firebase";
 import Landing from "./Landing";
 import News from "./News";
 import Header from "./Header";
 import AddPlant from "./AddPlant";
 import GardenList from "./GardenList";
+import List from './List/List';
 import "./App.css";
 
 class App extends Component {
@@ -32,41 +32,10 @@ class App extends Component {
         this.userRef = this.fs.collection("users");
     }
 
+
+
     componentDidMount() {
         this.getNews();
-        const returnToRouteState = this.state.routes;
-        this.auth
-            .getRedirectResult()
-            .then((result) => {
-                if (result.credential) {
-                    // This gives you a Google Access Token. You can use it to access the Google API.
-                    const token = result.credential.accessToken;
-                }
-                // The signed-in user info.
-                const user = result.user;
-            })
-            .catch((error) => {
-                // Handle Errors here.
-                const { code, message, email, credential } = error;
-                const errorObj = {
-                    code,
-                    message,
-                    email,
-                    credential,
-                };
-                console.log(errorObj);
-            });
-
-        this.auth.onAuthStateChanged(async (user) => {
-            if (user) {
-                // User is signed in.
-                this.setState({ user });
-                this.getInventory(user);
-            } else {
-                // User is signed out.
-                console.log("Auth State: User is/has signed out");
-            }
-        });
     }
 
     getNews = () => {
@@ -103,7 +72,9 @@ class App extends Component {
         }
     };
 
-    signIn = () => {
+    signIn = (e) => {
+        e.preventDefault();
+
         const provider = new firebase.auth.GoogleAuthProvider();
         this.auth.signInWithRedirect(provider);
     };
@@ -201,7 +172,8 @@ class App extends Component {
 
     render() {
         const { showAddForm, inventory, routes, news } = this.state;
-        let view = <Landing />;
+        // let view = <Landing />;
+        let view = <List />;
         if (!routes.home) {
             if (routes.news) {
                 view = <News news={news} />;
