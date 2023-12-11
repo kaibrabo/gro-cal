@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 // import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import firebase from "../firebase";
+import { db, auth } from "../firebase";
 import Landing from "./Landing";
 import News from "./News";
 import Header from "./Header";
@@ -26,9 +26,9 @@ class App extends Component {
             },
             hasErrors: false
         };
-
-        this.fs = firebase.firestore();
-        this.auth = firebase.auth();
+        console.log("FIREBASE - APP:", db);
+        this.fs = db;
+        this.auth = auth;
         this.userRef = this.fs.collection("users");
     }
 
@@ -104,7 +104,7 @@ class App extends Component {
     };
 
     signIn = () => {
-        const provider = new firebase.auth.GoogleAuthProvider();
+        const provider = this.auth.GoogleAuthProvider();
         this.auth.signInWithRedirect(provider);
     };
 

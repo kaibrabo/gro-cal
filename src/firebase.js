@@ -1,10 +1,11 @@
-import * as firebase from "firebase/app";
+// import * as firebase from "firebase/app";
+import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
 import "firebase/database";
-import "firebase/auth";
-import "firebase/firestore";
+import { getAuth } from "firebase/auth";
 
 // Initialize Firebase
-var config = {
+var firebaseConfig = {
     apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
     authDomain: process.env.REACT_APP_AUTH_DOMAIN,
     databaseURL: process.env.REACT_APP_DATABASE_URL,
@@ -14,6 +15,8 @@ var config = {
     appId: process.env.REACT_APP_APP_ID,
 };
 
-firebase.initializeApp(config);
+const firebase = initializeApp(firebaseConfig);
+const db = getFirestore(firebase);
+const auth = getAuth(firebase);
 
-export default firebase;
+export { db, auth };
