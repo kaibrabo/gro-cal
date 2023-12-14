@@ -1,6 +1,11 @@
 import React, { Component } from "react";
 // import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { db, auth } from "../firebase";
+import { 
+    // db, 
+    // auth, 
+    collection, 
+    getDocs 
+} from "../firebase";
 import Landing from "./Landing";
 import News from "./News";
 import Header from "./Header";
@@ -26,47 +31,54 @@ class App extends Component {
             },
             hasErrors: false
         };
-        console.log("FIREBASE - APP:", db);
-        this.fs = db;
-        this.auth = auth;
-        this.userRef = this.fs.collection("users");
+
+        // this.userRef = collection(db, "users");
+        // // this.users = [];
+        // this.getUsers(db).then(res => this.users = [...res]);
+        // console.log("FIREBASE - APP:", db, this.users, this.users, this.userRef);
     }
 
     componentDidMount() {
         this.getNews();
-        const returnToRouteState = this.state.routes;
-        this.auth
-            .getRedirectResult()
-            .then((result) => {
-                if (result.credential) {
-                    // This gives you a Google Access Token. You can use it to access the Google API.
-                    const token = result.credential.accessToken;
-                }
-                // The signed-in user info.
-                const user = result.user;
-            })
-            .catch((error) => {
-                // Handle Errors here.
-                const { code, message, email, credential } = error;
-                const errorObj = {
-                    code,
-                    message,
-                    email,
-                    credential,
-                };
-                console.log(errorObj);
-            });
 
-        this.auth.onAuthStateChanged(async (user) => {
-            if (user) {
-                // User is signed in.
-                this.setState({ user });
-                this.getInventory(user);
-            } else {
-                // User is signed out.
-                console.log("Auth State: User is/has signed out");
-            }
-        });
+        // auth.getRedirectResult()
+        //     .then((result) => {
+        //         if (result.credential) {
+        //             // This gives you a Google Access Token. You can use it to access the Google API.
+        //             const token = result.credential.accessToken;
+        //         }
+        //         // The signed-in user info.
+        //         const user = result.user;
+        //     })
+        //     .catch((error) => {
+        //         // Handle Errors here.
+        //         const { code, message, email, credential } = error;
+        //         const errorObj = {
+        //             code,
+        //             message,
+        //             email,
+        //             credential,
+        //         };
+        //         console.log(errorObj);
+        //     });
+
+        // auth.onAuthStateChanged(async (user) => {
+        //     if (user) {
+        //         // User is signed in.
+        //         this.setState({ user });
+        //         this.getInventory(user);
+        //     } else {
+        //         // User is signed out.
+        //         console.log("Auth State: User is/has signed out");
+        //     }
+        // });
+    }
+
+    async getUsers(db) {
+        const usersCol = collection(db, "users");
+        const usersSnap = await getDocs(usersCol); 
+        const usersList = usersSnap.docs.map(doc => doc.data());
+        return usersList;
     }
 
     getNews = () => {
@@ -104,24 +116,24 @@ class App extends Component {
     };
 
     signIn = () => {
-        const provider = this.auth.GoogleAuthProvider();
-        this.auth.signInWithRedirect(provider);
+        // const provider = auth.GoogleAuthProvider();
+        // auth.signInWithRedirect(provider);
     };
 
     signOut = () => {
         const _this = this;
-        this.auth
-            .signOut()
-            .then(function () {
-                _this.setState({
-                    inventory: [],
-                    showForm: false,
-                    user: null,
-                });
-            })
-            .catch(function (error) {
-                console.log("Error: ", error);
-            });
+        // auth
+        //     .signOut()
+        //     .then(function () {
+        //         _this.setState({
+        //             inventory: [],
+        //             showForm: false,
+        //             user: null,
+        //         });
+        //     })
+        //     .catch(function (error) {
+        //         console.log("Error: ", error);
+        //     });
     };
 
     addPlant = async (plant) => {

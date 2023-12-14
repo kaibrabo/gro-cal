@@ -32,11 +32,11 @@ class News extends Component {
                                         target="_blank"
                                         rel="noopener noreferrer"
                                     >
-                                        <img
+                                        {/* <img
                                             className="thumbnail"
                                             src={post.thumbnail}
                                             alt="thumbnail"
-                                        />
+                                        /> */}
                                         <strong className="title">
                                             {post.title}
                                         </strong>
