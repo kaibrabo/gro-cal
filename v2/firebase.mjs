@@ -1,5 +1,5 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-import { getAuth } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+import { getAuth, GoogleAuthProvider, signInWithRedirect, getRedirectResult } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
 import { getFirestore } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
 
 export function initFirebase() {
@@ -15,8 +15,13 @@ export function initFirebase() {
 
     // Initialize Firebase
     const app = initializeApp(firebaseConfig);
+    
+    // auth
     const auth = getAuth(app);
+    const provider = new GoogleAuthProvider();
+    
+    // firestore
     const db = getFirestore(app);
 
-    return { auth, db };
+    return { auth, provider, signInWithRedirect, getRedirectResult, db };
 }

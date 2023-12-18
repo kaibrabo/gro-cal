@@ -1,14 +1,41 @@
 import { initFirebase } from './firebase.mjs';
 import { initUI } from './ui.mjs';
 
-function main() {
-    console.log("Main.js loaded");
+async function main() {
+    // global app data
+    const app = {};
+
     // auth, firestore
-    const firebase = initFirebase();
+    app.firebase = !app.firebase ? initFirebase() : null;
+    
+    if (!app.firebase) {
+        console.error("firebase not loaded");
+        return;
+    }
 
-    const lib = { firebase };
+    await handleGoogleAuthRedirect(app);
+    
+    initUI(app);
 
-    initUI(lib);
+    console.log("Main.js loaded");
 }
 main();
+
+async function handleGoogleAuthRedirect(app) {
+    try {
+
+        const result = await app.firebase.getRedirectResult(app.firebase.auth);
+    
+        if (result) {
+            console.log("res:", result.user);
+            app.user = result.user;
+            return;
+        }
+    } 
+    catch(err) {
+        console.error(err);
+    }
+
+    return;
+}
 

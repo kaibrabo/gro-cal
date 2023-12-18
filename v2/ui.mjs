@@ -1,13 +1,18 @@
-export function initUI({ firebase }) {
-    console.log("UI loaded", firebase);
-    header(firebase.auth);
+export function initUI(app) {
+    console.log("UI loaded", app);
+    header(app);
 }
 
-function header(auth) {
+function header(app) {
     // const logo = document.getElementById('logo');
     const login = document.getElementById('login');
 
-    login.addEventListener('click', () => {
-        console.log("clicked", auth);
+    login.addEventListener('click', async () => {
+        if (!app.firebase) { 
+            console.error("No Firebase Loaded."); 
+            return;
+        }
+
+        app.firebase.signInWithRedirect(app.firebase.auth, app.firebase.provider);        
     });
 }
