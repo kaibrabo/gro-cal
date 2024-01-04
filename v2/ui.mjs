@@ -7,6 +7,10 @@ function header(app) {
     // const logo = document.getElementById('logo');
     const login = document.getElementById('login');
 
+    if (app.user) {
+        login.textContent = app.user.displayName;
+    }
+
     login.addEventListener('click', async () => {
         if (!app.firebase) { 
             console.error("No Firebase Loaded."); 

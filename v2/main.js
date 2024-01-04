@@ -5,7 +5,7 @@ async function main() {
     // global app data
     const app = {};
 
-    // auth, firestore
+    // firestore
     app.firebase = !app.firebase ? initFirebase() : null;
     
     if (!app.firebase) {
@@ -13,8 +13,10 @@ async function main() {
         return;
     }
 
-    await handleGoogleAuthRedirect(app);
+    // handle authenticated user
+    app.user = await handleGoogleAuthRedirect(app);
     
+    // UI
     initUI(app);
 
     console.log("Main.js loaded");
@@ -23,19 +25,14 @@ main();
 
 async function handleGoogleAuthRedirect(app) {
     try {
-
         const result = await app.firebase.getRedirectResult(app.firebase.auth);
     
         if (result) {
-            console.log("res:", result.user);
-            app.user = result.user;
-            return;
+            return result.user;
         }
     } 
     catch(err) {
-        console.error(err);
+        console.error(err);    
     }
-
-    return;
 }
 
