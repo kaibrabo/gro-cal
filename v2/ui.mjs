@@ -4,19 +4,29 @@ export function initUI(app) {
 }
 
 function header(app) {
-    // const logo = document.getElementById('logo');
-    const login = document.getElementById('login');
+    try {
+        // const logo = document.getElementById('logo');
+        const login = document.getElementById("login");
 
-    if (app.user) {
-        login.textContent = app.user.displayName;
+        login.textContent = app.user ? "Logout" : "Login";
+
+        login.addEventListener("click", async () => {
+            if (!app.firebase) {
+                console.error("No Firebase Loaded.");
+                return;
+            }
+
+            if (!app.user) {
+                app.firebase.signInWithRedirect(
+                    app.firebase.auth,
+                    app.firebase.provider
+                );
+            } else {
+                await app.firebase.auth.signOut(app.firebase.auth);
+                app.user = null;
+            }
+        });
+    } catch (err) {
+        console.error(err);
     }
-
-    login.addEventListener('click', async () => {
-        if (!app.firebase) { 
-            console.error("No Firebase Loaded."); 
-            return;
-        }
-
-        app.firebase.signInWithRedirect(app.firebase.auth, app.firebase.provider);        
-    });
 }
