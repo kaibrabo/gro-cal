@@ -7,53 +7,78 @@ const APP = {
     firebase: null,
 };
 
-async function main(app) {
+async function main() {
     // firestore
-    app.firebase = !app.firebase ? initFirebase() : null;
+    APP.firebase = !APP.firebase ? initFirebase() : null;
 
-    if (!app.firebase) {
+    if (!APP.firebase) {
         console.error("firebase not loaded");
         return;
     }
 
+    APP.firebase.auth.onAuthStateChanged(async (user) => {
+        if (user) {
+            APP.user = user;
+            await checkOrCreateUserFirebase(APP, APP.user);
+        } else {
+            APP.user = null;
+        }
+
+        initUI(APP);
+    });
+
+    console.log("Main.js loaded");
+}
+
+main();
+
+/**
+ *
+ * @param {object} app  object
+ * @param {object} user object
+ * @returns {void}
+ */
+async function checkOrCreateUserFirebase(app, user) {
+    if (!app || !user || !app.firebase.db) {
+        console.error("Invalid parameters passed to checkOrCreateUserFirebase");
+        return;
+    }
+
+    const userRef = app.firebase.doc(app.firebase.db, "users", user.uid);
+
     try {
-        app.firebase.auth.onAuthStateChanged(async (user) => {
-            if (user) {
-                app.user = user;
-                await checkOrCreateUser(app, app.user, app.firebase.db);
-            } else {
-                app.user = null;
-            }
+        const docSnap = await app.firebase.getDoc(userRef);
 
-            initUI(app);
-        });
+        if (!docSnap.exists()) {
+            const userData = {
+                createdAt: new Date(),
+                uid: user.uid,
+                displayName: user.displayName,
+                email: user.email,
+                inventory: [],
+            };
 
-        console.log("Main.js loaded");
+            await setDoc(userRef, userData);
+            console.log("User created in Firestore");
+        } else {
+            console.log("User already exists in Firestore");
+        }
     } catch (err) {
-        console.error(err);
-        return null;
+        console.error("Error in Firestore operation:", err);
     }
 }
 
-main(APP);
-
-async function checkOrCreateUser(app, user, db) {
-    const userRef = app.firebase.doc(db, "users", user.uid);
-    const docSnap = await app.firebase.getDoc(userRef);
-
-    const userData = {
+/**
+ *
+ * @param {object} user
+ * @returns {object}
+ */
+function createUserData(user) {
+    return {
         createdAt: new Date(),
         uid: user.uid,
-        accessToken: user.accessToken,
         displayName: user.displayName,
         email: user.email,
         inventory: [],
     };
-
-    if (!docSnap.exists()) {
-        await app.firebase.setDoc(userRef, userData);
-        console.log("User created in firestore");
-    } else {
-        console.log("User already exists in firestore");
-    }
 }
