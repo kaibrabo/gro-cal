@@ -50,18 +50,15 @@ async function checkOrCreateUserFirebase(app, user) {
         const docSnap = await app.firebase.getDoc(userRef);
 
         if (!docSnap.exists()) {
-            const userData = {
-                createdAt: new Date(),
-                uid: user.uid,
-                displayName: user.displayName,
-                email: user.email,
-                inventory: [],
-            };
+            const userData = createUserData(user);
 
-            await setDoc(userRef, userData);
+            await app.firebase.setDoc(userRef, userData);
+
             console.log("User created in Firestore");
         } else {
-            console.log("User already exists in Firestore");
+            app.user.firestore = docSnap.data();
+
+            console.log("User already exists in Firestore", docSnap.data());
         }
     } catch (err) {
         console.error("Error in Firestore operation:", err);
@@ -79,6 +76,17 @@ function createUserData(user) {
         uid: user.uid,
         displayName: user.displayName,
         email: user.email,
-        inventory: [],
+        inventory: [createItem(firstItem)],
+    };
+}
+
+function createItem(item) {
+    return {
+        id: item.id,
+        name: item.name,
+        type: item.type,
+        startVeg: item.startVeg,
+        flowerTime: item.flowerTime,
+        startFlower: item.startFlower,
     };
 }
