@@ -1,36 +1,103 @@
+/*
+    Copyright © 2024 Blumelist / Kainoa Ubaldo-Brabo. All Rights Reserved.
+*/
+
 import { initFirebase } from "./firebase.mjs";
 import { initUI } from "./ui.mjs";
 
 // global app data
-const APP = {
+const app = {
     user: null,
     firebase: null,
 };
 
-async function main() {
-    // firestore
-    APP.firebase = !APP.firebase ? initFirebase() : null;
 
-    if (!APP.firebase) {
+// RUNS THE PROGRAM
+main();
+
+// THE PROGRAM
+async function main() {
+    // load firestore
+    app.firebase = !app.firebase ? initFirebase() : null;
+
+    if (!app.firebase) {
         console.error("firebase not loaded");
         return;
     }
 
-    APP.firebase.auth.onAuthStateChanged(async (user) => {
+    // persist authenticated user
+    app.firebase.auth.onAuthStateChanged(async (user) => {
         if (user) {
-            APP.user = user;
-            await checkOrCreateUserFirebase(APP, APP.user);
+            app.user = user;
+            app.userRef = await checkOrCreateUserFirebase(app, app.user);
         } else {
-            APP.user = null;
+            app.user = null;
+            app.userRef = null;
         }
 
-        initUI(APP);
-    });
+        console.log("app USER", app.user);
 
+        // get user's plant list from firestore 
+
+        // display UI
+        initUI(app);
+    });
+    
     console.log("Main.js loaded");
 }
 
-main();
+
+// HELPER FUNCTIONS -----------------------------------------------------------
+
+// SIMPLE FUNCTIONS
+function logMessage(method='', err='') {
+    let date = new Date;
+    date = date.toISOString().replace('T', ' ').replace('Z', '');
+
+    let message = `(${date})::${method}`
+    
+    message += err != '' ? ` Error: ${err}` : '';
+
+    console.log(message);
+    return;
+}
+
+function generateId() {
+    return Date.now().toString(36) + Math.random().toString(36).substring(2);
+}
+
+function createUserData(user) {
+    logMessage('createUserData');
+
+    return {
+        createdAt: new Date(),
+        uid: user.uid,
+        displayName: user.displayName,
+        email: user.email,
+    };
+}
+
+function createPlantsList(user) {
+    logMessage("createPlantsList");
+
+    return {
+        createdAt: new Date(),
+        uid: user.uid,
+        name: `NewGarden`,
+        pid: generateId(),
+        list: [],
+    }
+}
+
+// COMPLEX FUNCTIONS
+
+// function getPlantsList(app, user) {
+//     logMessage('getPlantsList');
+
+//     if (!app || !user) logMessage('getPlantsList', 'Missing Parameters');
+    
+//     const plantsListRef = app.firebase.doc(app.firebase.db, 'plants', )
+// }
 
 /**
  *
@@ -39,8 +106,10 @@ main();
  * @returns {void}
  */
 async function checkOrCreateUserFirebase(app, user) {
+    logMessage('checkOrCreateUserFirebase');
+
     if (!app || !user || !app.firebase.db) {
-        console.error("Invalid parameters passed to checkOrCreateUserFirebase");
+        logMessage("checkOrCreateUserFirebase", "Missing Parameters");
         return;
     }
 
@@ -58,35 +127,11 @@ async function checkOrCreateUserFirebase(app, user) {
         } else {
             app.user.firestore = docSnap.data();
 
-            console.log("User already exists in Firestore", docSnap.data());
+            console.log("User already exists in Firestore", app.user.firestore);
         }
     } catch (err) {
         console.error("Error in Firestore operation:", err);
     }
-}
 
-/**
- *
- * @param {object} user
- * @returns {object}
- */
-function createUserData(user) {
-    return {
-        createdAt: new Date(),
-        uid: user.uid,
-        displayName: user.displayName,
-        email: user.email,
-        inventory: [createItem(firstItem)],
-    };
-}
-
-function createItem(item) {
-    return {
-        id: item.id,
-        name: item.name,
-        type: item.type,
-        startVeg: item.startVeg,
-        flowerTime: item.flowerTime,
-        startFlower: item.startFlower,
-    };
+    return userRef;
 }

@@ -1,3 +1,7 @@
+/*
+    Copyright © 2024 Blumelist / Kainoa Ubaldo-Brabo. All Rights Reserved.
+*/
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import {
     getAuth,
