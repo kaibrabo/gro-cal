@@ -36,7 +36,7 @@ async function main() {
         } else {
             app.user = user;
             app.userRef = await authCheck(app);
-            app.user.plants = getPlants(app);
+            app.user.plants = await getPlants(app);
         }
 
         // display UI

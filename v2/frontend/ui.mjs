@@ -3,6 +3,7 @@
 */ 
 import { logMessage } from "../utils/log.mjs";
 import { navbar } from "./components/navbar.mjs";
+import {plantsList} from "./components/plantsList.mjs"
 
 export function initUI(app) {
     // DELETE for production
@@ -10,6 +11,7 @@ export function initUI(app) {
     
     // load components
     navbar(app);
+    plantsList(app);
 
     logMessage("UI loaded");
 }

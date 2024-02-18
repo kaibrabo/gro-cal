@@ -6,7 +6,7 @@ import { logMessage } from "../../utils/log.mjs";
 
 /**
  * retrieves all plants matching user's id
- * 
+ *
  * @param {object} app Global State Variable
  * @returns {object[]}
  */
@@ -14,7 +14,10 @@ export async function getUserPlants(app) {
     logMessage("getUserPlants");
 
     if (!app.user || !app.firebase) {
-        logMessage("getUserPlants", `user: ${!!app.user} firebase: ${!!app.firebase}`);
+        logMessage(
+            "getUserPlants",
+            `user: ${!!app.user} firebase: ${!!app.firebase}`
+        );
         return;
     }
 
@@ -22,18 +25,27 @@ export async function getUserPlants(app) {
         app.firebase.collection(app.firebase.db, "plants"),
         app.firebase.where("user_id", "==", app.user.uid)
     );
-        
+
     let docsSnapshot = await app.firebase.getDocs(q);
-    
+
     let plants = [];
 
     if (!docsSnapshot.size) {
-        logMessage('getUserPlants', 'no_plants');
+        logMessage("getUserPlants", "no_plants");
         return plants;
     }
 
     docsSnapshot.forEach((doc) => {
-        plants.push(doc.data());
+        let plant = doc.data();
+
+        plants.push({
+            flower_duration: plant.flower_duration,
+            name: plant.name,
+            notes: plant.notes,
+            start_time: plant.start_time,
+            type: plant.type,
+            veg_to_flower: plant.veg_to_flower,
+        });
     });
 
     return plants;
