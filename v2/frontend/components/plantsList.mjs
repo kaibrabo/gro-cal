@@ -11,28 +11,51 @@ export function plantsList(app) {
 
     const mainContent = document.getElementById("main-content");
 
-    const plantsListSection = document.createElement("div");
+    // Plants Section
+    const plantsTableContainer = document.createElement("table");
+    const plantsTableBody = document.createElement("tbody");
+
+    // plant table labels
+    let plantLabelRow = document.createElement("tr");
+    plantLabelRow.classList.add('plantLabelItem');
+
+    let name = document.createElement("td");
+    let type = document.createElement("td");
+    let notes = document.createElement("td");
+    let startTime = document.createElement("td");
+    let vegToFlower = document.createElement("td");
+    let flowerDuration = document.createElement("td");
+
+    name.append('Name');
+    type.append('Type');
+    notes.append('Notes');
+    startTime.append('Start');
+    vegToFlower.append('Switch');
+    flowerDuration.append('Flower Time');
+
+    plantLabelRow.append(
+        name,
+        type,
+        startTime,
+        vegToFlower,
+        flowerDuration,
+        notes
+    );
+
+    // add each table row
+    plantsTableBody.append(plantLabelRow);
 
     for (let plant of app.user.plants) {
-        const data = {
-            flower_duration: 65,
-            name: "--name--",
-            notes: "--notes--",
-            start_time: "--start-time--",
-            type: "--type--",
-            user_id: "sNwMkSufWaPgGeYlMcmFqtmT3kz2",
-            "veg-to-flower": "--veg-to-flower--",
-        };
-
-        let plantElement = document.createElement("div");
+        let plantRow = document.createElement("tr");
+        plantRow.classList.add('plantItem');
 
         // plant info
-        let name = document.createElement("p");
-        let type = document.createElement("p");
-        let notes = document.createElement("p");
-        let startTime = document.createElement("p");
-        let vegToFlower = document.createElement("p");
-        let flowerDuration = document.createElement("p");
+        name = document.createElement("td");
+        type = document.createElement("td");
+        notes = document.createElement("td");
+        startTime = document.createElement("td");
+        vegToFlower = document.createElement("td");
+        flowerDuration = document.createElement("td");
 
         name.append(plant.name);
         type.append(plant.type);
@@ -41,7 +64,7 @@ export function plantsList(app) {
         vegToFlower.append(plant.veg_to_flower);
         flowerDuration.append(plant.flower_duration);
 
-        plantElement.append(
+        plantRow.append(
             name,
             type,
             startTime,
@@ -50,8 +73,13 @@ export function plantsList(app) {
             notes
         );
 
-        plantsListSection.append(plantElement);
+        // add each table row
+        plantsTableBody.append(plantRow);
     }
 
-    mainContent.append(plantsListSection);
+    // add tbody to table
+    plantsTableContainer.append(plantsTableBody);
+
+    // add to main section
+    mainContent.append(plantsTableContainer);
 }
