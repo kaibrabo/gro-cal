@@ -1,56 +1,11 @@
-/*
-    Copyright © 2024 Blumelist / Kainoa Ubaldo-Brabo. All Rights Reserved.
-*/
-
-import { initFirebase } from "./db/firebase.mjs";
-import { initUI } from "../frontend/ui.mjs";
-import { logMessage } from "../utils/log.js";
-
-// global app data
-const app = {
-    user: null,
-    firebase: null,
-};
-
-// RUNS THE PROGRAM
-main();
-
-// THE PROGRAM
-async function main() {
-    // load firestore
-    app.firebase = !app.firebase ? initFirebase() : null;
-
-    if (!app.firebase) {
-        logMessage("main", "firebase not loaded");
-        return;
-    }
-
-    // persist authenticated user
-    app.firebase.auth.onAuthStateChanged(async (user) => {
-        if (user) {
-            app.user = user;
-            app.userRef = await checkOrCreateUserFirebase(app);
-        } else {
-            app.user = null;
-            app.userRef = null;
-            logMessage("main", "no user");
-        }
-
-        // display UI
-        initUI(app);
-    });
-
-    logMessage("main loaded");
-}
-
-// HELPER FUNCTIONS -----------------------------------------------------------
+import { logMessage } from "../../utils/log.mjs";
 
 /**
  *
  * @param {object} app object
  * @returns {void}
  */
-async function checkOrCreateUserFirebase(app) {
+export async function checkOrCreateUserFirebase(app) {
     logMessage("checkOrCreateUserFirebase");
 
     if (!app || !app.user || !app.firebase.db) {
