@@ -5,9 +5,7 @@
 import { logMessage } from "../../utils/log.mjs";
 
 // APP
-import { 
-    initializeApp
-} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 
 // AUTHENTICATION
 import {
@@ -20,12 +18,12 @@ import {
 // FIRESTORE DATABASE
 import {
     doc,
-    query, 
-    where, 
+    query,
+    where,
     getDoc,
     setDoc,
     getDocs,
-    collection, 
+    collection,
     getFirestore,
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
@@ -60,13 +58,13 @@ export function initFirebase() {
         db,
         doc,
         auth,
-        query, 
-        where, 
+        query,
+        where,
         getDoc,
         setDoc,
         getDocs,
         provider,
-        collection, 
+        collection,
         getRedirectResult,
         signInWithRedirect,
     };

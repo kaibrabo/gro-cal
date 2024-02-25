@@ -6,6 +6,6 @@ import { logMessage } from "../../utils/log.mjs";
 import { getUserPlants } from "../models/plantsModel.mjs";
 
 export function getPlants(app) {
-    logMessage('getPlants');
+    logMessage("getPlants");
     return getUserPlants(app);
 }

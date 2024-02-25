@@ -8,7 +8,7 @@ import { initFirebase } from "./backend/db/firebase.mjs";
 import { authCheck } from "./backend/controllers/userController.mjs";
 import { getPlants } from "./backend/controllers/plantsController.mjs";
 
-// global app data 
+// global app data
 // (need to figure out something better)
 const app = {
     user: null,
