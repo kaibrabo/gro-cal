@@ -32,7 +32,8 @@ export function plantsList(app) {
         type: "Type",
         start_time: "Start",
         veg_to_flower: "Switch",
-        flower_duration: "Flower Time",
+        flower_duration: "Flower (days)",
+        end_time: "End",
         notes: "Notes",
     };
 
@@ -62,18 +63,22 @@ function addRowToTable(table, data, cellType) {
     let name = document.createElement(cellType);
     let type = document.createElement(cellType);
     let notes = document.createElement(cellType);
+    let endTime = document.createElement(cellType);
     let startTime = document.createElement(cellType);
     let vegToFlower = document.createElement(cellType);
     let flowerDuration = document.createElement(cellType);
 
+    console.log("ENDTIME", data);
+
     name.append(data.name);
     type.append(data.type);
     notes.append(data.notes);
+    endTime.append(data.end_time);
     startTime.append(data.start_time);
     vegToFlower.append(data.veg_to_flower);
     flowerDuration.append(data.flower_duration);
 
-    row.append(name, type, startTime, vegToFlower, flowerDuration, notes);
+    row.append(name, type, startTime, vegToFlower, endTime, flowerDuration, notes);
 
     // add each table row
     table.append(row);

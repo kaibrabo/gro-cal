@@ -41,9 +41,10 @@ export async function getUserPlants(app) {
         plants.push({
             flower_duration: plant.flower_duration,
             name: plant.name,
-            notes: plant.notes,
-            start_time: plant.start_time,
             type: plant.type,
+            notes: plant.notes,
+            end_time: plant.end_time,
+            start_time: plant.start_time,
             veg_to_flower: plant.veg_to_flower,
         });
     });
