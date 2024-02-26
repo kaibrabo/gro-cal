@@ -23,9 +23,10 @@ export function plantsList(app) {
 
     // Plants Section
     const plantsTableContainer = document.createElement("table");
+    const plantsTableHead = document.createElement("thead");
     const plantsTableBody = document.createElement("tbody");
 
-    // add plant table labels
+    // add labels to table head
     const LABELS = {
         name: "Name",
         type: "Type",
@@ -35,30 +36,35 @@ export function plantsList(app) {
         notes: "Notes",
     };
 
-    addRowToTable(plantsTableBody, LABELS);
+    addRowToTable(plantsTableHead, LABELS, "th");
 
-    // add each plant to table
+    // add head labels to table
+    plantsTableContainer.append(plantsTableHead);
+
+    // add each plant to body
     for (let plant of app.user.plants) {
-        addRowToTable(plantsTableBody, plant);
+        addRowToTable(plantsTableBody, plant, "td");
     }
 
     // add tbody to table
     plantsTableContainer.append(plantsTableBody);
 
-    // add to main section
+    // add to main section (remove loading)
+    const loading = document.querySelector(".lds-roller");
+    mainContent.removeChild(loading);
     mainContentInnerContainer.append(plantsTableContainer);
 }
 
-function addRowToTable(table, data) {
+function addRowToTable(table, data, cellType) {
     let row = document.createElement("tr");
     row.classList.add("row-item");
 
-    let name = document.createElement("td");
-    let type = document.createElement("td");
-    let notes = document.createElement("td");
-    let startTime = document.createElement("td");
-    let vegToFlower = document.createElement("td");
-    let flowerDuration = document.createElement("td");
+    let name = document.createElement(cellType);
+    let type = document.createElement(cellType);
+    let notes = document.createElement(cellType);
+    let startTime = document.createElement(cellType);
+    let vegToFlower = document.createElement(cellType);
+    let flowerDuration = document.createElement(cellType);
 
     name.append(data.name);
     type.append(data.type);
