@@ -51,7 +51,7 @@ export function plantsList(app) {
     plantsTableContainer.append(plantsTableBody);
 
     // add to main section (remove loading)
-    const loading = document.querySelector(".lds-roller");
+    const loading = document.querySelector("#main-content-loading");
     mainContent.removeChild(loading);
     mainContentInnerContainer.append(plantsTableContainer);
 }

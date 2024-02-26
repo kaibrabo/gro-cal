@@ -13,14 +13,17 @@ import { logMessage } from "../../utils/log.mjs";
 export async function getUserPlants(app) {
     logMessage("getUserPlants");
 
-    if (!app.user || !app.firebase) {
+    if (!app.user || !app.firebase || !app.user.firestore) {
         logMessage(
             "getUserPlants",
-            `user: ${!!app.user} firebase: ${!!app.firebase}`
+            `user: ${!!app.user},
+            firebase: ${!!app.firebase},
+            firestore: ${!!app.user.firestore}`
         );
         return;
     }
 
+    // multiple documents in one request (Most efficient?)
     const q = app.firebase.query(
         app.firebase.collection(app.firebase.db, "plants"),
         app.firebase.where("user_id", "==", app.user.uid)

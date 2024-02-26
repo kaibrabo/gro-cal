@@ -49,5 +49,6 @@ function createUserData(user) {
         uid: user.uid,
         displayName: user.displayName,
         email: user.email,
+        plants: [],
     };
 }
