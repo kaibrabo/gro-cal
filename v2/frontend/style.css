@@ -19,7 +19,6 @@ main#container {
 }
 
 nav {
-    /* background-color: gray; */
     border-right: 1px solid rgba(255, 255, 255, 0.3);
 
     width: 300px;
@@ -31,6 +30,11 @@ nav {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+}
+
+#nav-content {
+    height: 100%;
+    margin: 20px 0 10px;
 }
 
 #logo {
@@ -150,6 +154,18 @@ tbody tr:hover {
 th {
     position: sticky;
     top: 0;
+}
+
+#add-item-btn {
+    cursor: pointer;
+    font-size: 14px;
+    color: white;
+    background: #555555;
+    padding: 4px 12px;
+    border-radius: 6px;
+    border: none;
+    width: 143px;
+    height: 24px;
 }
 
 .modal {

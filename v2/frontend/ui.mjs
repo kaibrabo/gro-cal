@@ -15,8 +15,14 @@ export function initUI(app) {
     navbar(app);
 
     if (app.user && app.user.plants) {
+        
         plantsList(app);
     }
-
+    
+    // add to main section (remove loading)
+    const mainContent = document.querySelector("#main-content");
+    const loading = document.querySelector("#main-content-loading");
+    mainContent.removeChild(loading);
+    
     logMessage("UI loaded");
 }

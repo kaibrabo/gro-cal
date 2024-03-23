@@ -50,9 +50,7 @@ export function plantsList(app) {
     // add tbody to table
     plantsTableContainer.append(plantsTableBody);
 
-    // add to main section (remove loading)
-    const loading = document.querySelector("#main-content-loading");
-    mainContent.removeChild(loading);
+    // add table to main content
     mainContentInnerContainer.append(plantsTableContainer);
 }
 
