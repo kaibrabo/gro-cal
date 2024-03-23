@@ -182,13 +182,29 @@ th {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: white;
+    background: #828282;
     padding: 20px;
+    border-radius: 6px;
 }
 
 .add-item-form {
     display: flex;
     flex-direction: column;
+}
+
+.add-item-form label {
+    margin: 0 0 0 5px;
+}
+
+.add-item-form input {
+    background-color: inherit;
+    color: white;
+    border: none;
+    border: 1px solid #555555;
+    border-radius: 3px;
+    padding: 3px 10px;
+    margin: 5px 0 10px;
+    outline: none;
 }
 
 /* https://loading.io/css/ */
