@@ -68,16 +68,16 @@ function addRowToTable(table, data, cellType) {
 
     console.log("ENDTIME", data);
 
-    name.appendChild(data.name);
-    type.appendChild(data.type);
-    notes.appendChild(data.notes);
-    endTime.appendChild(data.end_time);
-    startTime.appendChild(data.start_time);
-    vegToFlower.appendChild(data.veg_to_flower);
-    flowerDuration.appendChild(data.flower_duration);
+    name.append(data.name);
+    type.append(data.type);
+    notes.append(data.notes);
+    endTime.append(data.end_time);
+    startTime.append(data.start_time);
+    vegToFlower.append(data.veg_to_flower);
+    flowerDuration.append(data.flower_duration);
 
-    row.appendChild(name, type, startTime, vegToFlower, endTime, flowerDuration, notes);
+    row.append(name, type, startTime, vegToFlower, endTime, flowerDuration, notes);
 
     // add each table row
-    table.appendChild(row);
+    table.append(row);
 }
