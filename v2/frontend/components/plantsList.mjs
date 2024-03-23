@@ -14,12 +14,12 @@ export function plantsList(app) {
     mainContentInnerContainer.id = "main-content-inner";
 
     // set inner container div to hold all main content
-    mainContent.append(mainContentInnerContainer);
+    mainContent.appendChild(mainContentInnerContainer);
 
     // Plants Title
     const plantsTitle = document.createElement("h1");
     plantsTitle.textContent = "Plants";
-    mainContentInnerContainer.append(plantsTitle);
+    mainContentInnerContainer.appendChild(plantsTitle);
 
     // Plants Section
     const plantsTableContainer = document.createElement("table");
@@ -40,7 +40,7 @@ export function plantsList(app) {
     addRowToTable(plantsTableHead, LABELS, "th");
 
     // add head labels to table
-    plantsTableContainer.append(plantsTableHead);
+    plantsTableContainer.appendChild(plantsTableHead);
 
     // add each plant to body
     for (let plant of app.user.plants) {
@@ -48,10 +48,10 @@ export function plantsList(app) {
     }
 
     // add tbody to table
-    plantsTableContainer.append(plantsTableBody);
+    plantsTableContainer.appendChild(plantsTableBody);
 
     // add table to main content
-    mainContentInnerContainer.append(plantsTableContainer);
+    mainContentInnerContainer.appendChild(plantsTableContainer);
 }
 
 function addRowToTable(table, data, cellType) {
@@ -68,16 +68,16 @@ function addRowToTable(table, data, cellType) {
 
     console.log("ENDTIME", data);
 
-    name.append(data.name);
-    type.append(data.type);
-    notes.append(data.notes);
-    endTime.append(data.end_time);
-    startTime.append(data.start_time);
-    vegToFlower.append(data.veg_to_flower);
-    flowerDuration.append(data.flower_duration);
+    name.appendChild(data.name);
+    type.appendChild(data.type);
+    notes.appendChild(data.notes);
+    endTime.appendChild(data.end_time);
+    startTime.appendChild(data.start_time);
+    vegToFlower.appendChild(data.veg_to_flower);
+    flowerDuration.appendChild(data.flower_duration);
 
-    row.append(name, type, startTime, vegToFlower, endTime, flowerDuration, notes);
+    row.appendChild(name, type, startTime, vegToFlower, endTime, flowerDuration, notes);
 
     // add each table row
-    table.append(row);
+    table.appendChild(row);
 }
