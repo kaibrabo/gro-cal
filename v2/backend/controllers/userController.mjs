@@ -9,7 +9,7 @@ export async function authCheck(app) {
     return checkOrCreateUserFirebase(app);
 }
 
-export async function loginUser() {
+export async function loginUser(app) {
     logMessage("loginUser");
 
     if (!app.firebase) {
