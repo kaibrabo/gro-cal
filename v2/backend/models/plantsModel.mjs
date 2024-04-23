@@ -54,3 +54,26 @@ export async function getUserPlants(app) {
 
     return plants;
 }
+
+export async function addUserPlant(app, data) {
+    logMessage("addUserPlant");
+
+    const newItem = {
+        end_time: data.endTime,
+        flower_duration: data.duration,
+        name: data.name,
+        notes: data.notes,
+        start_time: data.startTime,
+        type: data.type,
+        veg_to_flower: data.vegToFlower,
+        user_id: app.user.uid,
+    };
+
+    const docRef = await app.firebase.addDoc(
+        app.firebase.collection(app.firebase.db, "plants"),
+        newItem
+    );
+
+    logMessage("addUserPlant", `doc id: ${docRef.id}`);
+    return;
+}

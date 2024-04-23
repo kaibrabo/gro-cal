@@ -9,6 +9,7 @@ export function logMessage(method = "", text = "") {
 
     let message = `(${date})::${method}\n`;
 
+    text = (text != "" ? `: ${text}`: "");
     message += text;
 
     console.log(message);

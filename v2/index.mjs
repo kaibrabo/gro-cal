@@ -39,8 +39,6 @@ async function main() {
             app.user.plants = await getPlants(app);
         }
 
-        
-
         // display UI
         initUI(app);
     });

@@ -24,5 +24,5 @@ export function navbar(app) {
 
     login.addEventListener("click", () => loginUser(app));
 
-    addItem.addEventListener("click", () => displayAddItemModal());
+    addItem.addEventListener("click", () => displayAddItemModal(app));
 }

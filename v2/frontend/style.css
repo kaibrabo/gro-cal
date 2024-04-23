@@ -140,7 +140,7 @@ tbody tr {
 }
 
 tbody tr:nth-of-type(even) {
-    background-color: #f3f3f3;
+    background-color: #202020;
 }
 
 tbody tr:last-of-type {
@@ -196,7 +196,7 @@ th {
     margin: 0 0 0 5px;
 }
 
-.add-item-form input {
+.add-item-form input, .add-item-form select {
     background-color: inherit;
     color: white;
     border: none;
