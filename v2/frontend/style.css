@@ -134,6 +134,19 @@ td {
     padding: 12px 15px;
 }
 
+#row-options {
+    width: 80px;
+}
+
+td#row-options {
+    display: flex;
+    justify-content: space-around;
+}
+
+td#row-options span {
+    cursor: pointer;
+}
+
 tbody tr {
     border-bottom: 1px solid #dddddd;
     width: 100%;

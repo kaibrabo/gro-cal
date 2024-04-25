@@ -66,8 +66,6 @@ function addRowToTable(table, data, cellType) {
     let vegToFlower = document.createElement(cellType);
     let flowerDuration = document.createElement(cellType);
 
-    console.log("ENDTIME", data);
-
     name.append(data.name);
     type.append(data.type);
     notes.append(data.notes);
@@ -76,7 +74,32 @@ function addRowToTable(table, data, cellType) {
     vegToFlower.append(data.veg_to_flower);
     flowerDuration.append(data.flower_duration);
 
-    row.append(name, type, startTime, vegToFlower, endTime, flowerDuration, notes);
+    let options = document.createElement("td");
+    options.id = "row-options";
+
+    let editBtn = document.createElement("span");
+    let deleteBtn = document.createElement("span");
+
+    if (cellType == "td") {
+        editBtn.classList.add("material-symbols-outlined");
+        editBtn.textContent = "edit_note";
+        deleteBtn.classList.add("material-symbols-outlined");
+        deleteBtn.textContent = "delete_forever";
+    }
+
+    options.appendChild(editBtn);
+    options.appendChild(deleteBtn);
+
+    row.append(
+        name,
+        type,
+        startTime,
+        vegToFlower,
+        endTime,
+        flowerDuration,
+        notes,
+        options
+    );
 
     // add each table row
     table.append(row);
