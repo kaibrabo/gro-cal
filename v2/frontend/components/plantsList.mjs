@@ -1,4 +1,5 @@
 import { logMessage } from "../../utils/log.mjs";
+import { editItemModal } from "./editItemModal.mjs";
 
 export function plantsList(app) {
     logMessage("plantsList");
@@ -17,7 +18,7 @@ export function plantsList(app) {
     mainContent.appendChild(mainContentInnerContainer);
 
     // Plants Title
-    const plantsTitle = document.createElement("h1");
+    const plantsTitle = document.createElement("h2");
     plantsTitle.textContent = "Plants";
     mainContentInnerContainer.appendChild(plantsTitle);
 
@@ -37,14 +38,14 @@ export function plantsList(app) {
         notes: "Notes",
     };
 
-    addRowToTable(plantsTableHead, LABELS, "th");
+    addRowToTable(app, plantsTableHead, LABELS, "th");
 
     // add head labels to table
     plantsTableContainer.appendChild(plantsTableHead);
 
     // add each plant to body
     for (let plant of app.user.plants) {
-        addRowToTable(plantsTableBody, plant, "td");
+        addRowToTable(app, plantsTableBody, plant, "td");
     }
 
     // add tbody to table
@@ -54,7 +55,7 @@ export function plantsList(app) {
     mainContentInnerContainer.appendChild(plantsTableContainer);
 }
 
-function addRowToTable(table, data, cellType) {
+function addRowToTable(app, table, data, cellType) {
     let row = document.createElement("tr");
     row.classList.add("row-item");
 
@@ -74,21 +75,35 @@ function addRowToTable(table, data, cellType) {
     vegToFlower.append(data.veg_to_flower);
     flowerDuration.append(data.flower_duration);
 
-    let options = document.createElement("td");
-    options.id = "row-options";
+    let options = null;
+
+    if (cellType == "th") {
+        options = document.createElement("th");
+        options.append("Options");
+    }
 
     let editBtn = document.createElement("span");
     let deleteBtn = document.createElement("span");
 
     if (cellType == "td") {
+        row.id = data.id;
+
         editBtn.classList.add("material-symbols-outlined");
         editBtn.textContent = "edit_note";
         deleteBtn.classList.add("material-symbols-outlined");
         deleteBtn.textContent = "delete_forever";
+
+        options = document.createElement("td");
+        options.id = "row-options";
+        options.appendChild(editBtn);
+        options.appendChild(deleteBtn);
     }
 
-    options.appendChild(editBtn);
-    options.appendChild(deleteBtn);
+    editBtn.addEventListener("click", (event) => {
+        event.preventDefault();
+
+        editItemModal(app, data);
+    });
 
     row.append(
         name,

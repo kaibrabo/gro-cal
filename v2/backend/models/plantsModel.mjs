@@ -42,6 +42,7 @@ export async function getUserPlants(app) {
         let plant = doc.data();
 
         plants.push({
+            id: doc.id,
             flower_duration: plant.flower_duration,
             name: plant.name,
             type: plant.type,
@@ -76,4 +77,23 @@ export async function addUserPlant(app, data) {
 
     logMessage("addUserPlant", `doc id: ${docRef.id}`);
     return;
+}
+
+export async function updateUserPlant(app, data) {
+    logMessage("updateUserPlant");
+
+    const item = {
+        end_time: data.endTime,
+        flower_duration: data.duration,
+        name: data.name,
+        notes: data.notes,
+        start_time: data.startTime,
+        type: data.type,
+        veg_to_flower: data.vegToFlower,
+        user_id: app.user.uid,
+    };
+
+    // update via data.id
+    const doc = app.firebase.doc(app.firebase.db, "plants", data.id);
+    return await app.firebase.setDoc(doc, item);
 }

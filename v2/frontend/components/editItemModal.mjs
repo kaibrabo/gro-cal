@@ -2,11 +2,12 @@
     Copyright © 2024 Blumelist / Kainoa Ubaldo-Brabo. All Rights Reserved.
 */
 
-import { addItem } from "../../backend/controllers/plantsController.mjs";
+// import { addItem } from "../../backend/controllers/plantsController.mjs";
+import { updateItem } from "../../backend/controllers/plantsController.mjs";
 import { logMessage } from "../../utils/log.mjs";
 
-export function addItemModal(app) {
-    logMessage("addItemModal");
+export function editItemModal(app, data) {
+    logMessage("editItemModal");
 
     const modal = document.createElement("div");
     modal.classList.add("modal");
@@ -21,10 +22,11 @@ export function addItemModal(app) {
     // name label & input
     const nameLabel = document.createElement("label");
     nameLabel.textContent = "Name";
-    
+
     const nameInput = document.createElement("input");
     nameInput.type = "text";
     nameInput.name = "name";
+    nameInput.value = data.name;
 
     form.appendChild(nameLabel);
     form.appendChild(nameInput);
@@ -33,23 +35,35 @@ export function addItemModal(app) {
     const typeLabel = document.createElement("label");
     typeLabel.textContent = "Type";
     typeLabel.htmlFor = "addItemTypeInput";
-    
+
     const typeInput = document.createElement("select");
     typeInput.id = "addItemTypeInput";
     typeInput.name = "type";
-    
+
     const sativa = document.createElement("option");
     sativa.value = "Sativa";
     sativa.textContent = "Sativa";
-    
+
     const indica = document.createElement("option");
     indica.value = "Indica";
     indica.textContent = "Indica";
-    
+
     const hybrid = document.createElement("option");
     hybrid.value = "Hybrid";
     hybrid.textContent = "Hybrid";
-    
+
+    switch (data.type) {
+        case "Indica":
+            indica.selected = true;
+            break;
+        case "Hybrid":
+            hybrid.selected = true;
+            break;
+        default:
+            sativa.selected = true;
+            break;
+    }
+
     typeInput.appendChild(sativa);
     typeInput.appendChild(indica);
     typeInput.appendChild(hybrid);
@@ -60,10 +74,11 @@ export function addItemModal(app) {
     // start time - label & input
     const startTimeLabel = document.createElement("label");
     startTimeLabel.textContent = "Start Date";
-    
+
     const startTimeInput = document.createElement("input");
     startTimeInput.type = "date";
     startTimeInput.name = "start-time";
+    startTimeInput.value = data.start_time;
     startTimeInput.addEventListener("change", (e) => calculateEndDate());
 
     form.appendChild(startTimeLabel);
@@ -72,10 +87,11 @@ export function addItemModal(app) {
     // veg to flower - label & input
     const vegToFlowerLabel = document.createElement("label");
     vegToFlowerLabel.textContent = "Flip Date (veg to flower)";
-    
+
     const vegToFlowerInput = document.createElement("input");
     vegToFlowerInput.type = "date";
     vegToFlowerInput.name = "veg-to-flower";
+    vegToFlowerInput.value = data.veg_to_flower;
     vegToFlowerInput.addEventListener("change", (e) => calculateEndDate());
 
     form.appendChild(vegToFlowerLabel);
@@ -84,11 +100,12 @@ export function addItemModal(app) {
     // flower duration - label & input
     const flowerDurationLabel = document.createElement("label");
     flowerDurationLabel.textContent = "Flowering (days)";
-    
+
     const flowerDurationInput = document.createElement("input");
     flowerDurationInput.type = "number";
     flowerDurationInput.min = "0";
     flowerDurationInput.name = "flower-duration";
+    flowerDurationInput.value = data.flower_duration;
     flowerDurationInput.addEventListener("change", (e) => calculateEndDate());
 
     form.appendChild(flowerDurationLabel);
@@ -97,10 +114,11 @@ export function addItemModal(app) {
     // end time - label & input
     const endTimeLabel = document.createElement("label");
     endTimeLabel.textContent = "End Date (computed)";
-    
+
     const endTimeInput = document.createElement("input");
     endTimeInput.type = "date";
     endTimeInput.name = "end-time";
+    endTimeInput.value = data.end_time;
     endTimeInput.disabled = true; // start out disabled
 
     form.appendChild(endTimeLabel);
@@ -109,28 +127,31 @@ export function addItemModal(app) {
     // notes - label & input
     const notesLabel = document.createElement("label");
     notesLabel.textContent = "Notes";
-    
-    const notesInput = document.createElement("input");
-    notesInput.type = "text";
+
+    const notesInput = document.createElement("textarea");
+    notesInput.id = "notes";
     notesInput.name = "notes";
+    notesInput.rows = 3;
+    notesInput.cols = 20;
+    notesInput.value = data.notes;
 
     form.appendChild(notesLabel);
     form.appendChild(notesInput);
 
     // update 'end time' to reflect ('veg-to-flower' + 'flower-duration)
 
-    // add to firebase button
-    const addButton = document.createElement("input");
-    addButton.type = "submit";
-    addButton.value = "SUBMIT";
+    // save/update to firebase button
+    const saveButton = document.createElement("input");
+    saveButton.type = "submit";
+    saveButton.value = "SAVE";
 
-    form.appendChild(addButton);
+    form.appendChild(saveButton);
     form.addEventListener("submit", async (e) => {
-
         e.preventDefault();
 
         const fd = new FormData(form);
         const item = {
+            id: data.id,
             name: fd.get("name"),
             type: fd.get("type"),
             startTime: fd.get("start-time"),
@@ -141,7 +162,7 @@ export function addItemModal(app) {
         };
 
         // send to firebase
-        await addItem(app, item);
+        await updateItem(app, item);
 
         // clear input
         form.reset();
@@ -159,25 +180,24 @@ export function addItemModal(app) {
 
     // remove modal on click
     modal.addEventListener("click", () => {
-        
         modal.remove();
     });
 
     // prevent click propagation on modal content
     modalContent.addEventListener("click", (e) => {
-
         e.stopPropagation();
     });
 
     var calculateEndDate = () => {
-
         const vegToFlower = new Date(vegToFlowerInput.value);
         const endDate = new Date(vegToFlower);
         let duration = parseInt(flowerDurationInput.value);
 
         duration = duration >= 0 ? duration : 0;
-        endDate.setDate(endDate.getDate() + duration);        
+        endDate.setDate(endDate.getDate() + duration);
         endTimeInput.valueAsDate = endDate;
-        endTimeInput.disabled = false;  // enabled once calculated
-    }
+        endTimeInput.disabled = false; // enabled once calculated
+    };
+
+    calculateEndDate();
 }

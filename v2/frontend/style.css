@@ -11,6 +11,7 @@ html {
 body {
     background-color: black;
     color: white;
+    letter-spacing: 0.1em;
 }
 
 main#container {
@@ -126,12 +127,14 @@ thead {
     background-color: #333;
     color: #fff;
     width: 100%;
+    border-left: 1px solid #555;
 }
 
 th,
 td {
     text-align: left;
-    padding: 12px 15px;
+    padding: 12px 10px;
+    font-size: 12px;
 }
 
 #row-options {
@@ -167,6 +170,7 @@ tbody tr:hover {
 th {
     position: sticky;
     top: 0;
+    border-right: 1px solid #555;
 }
 
 #add-item-btn {
@@ -195,7 +199,7 @@ th {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: #828282;
+    background: #222222;
     padding: 20px;
     border-radius: 6px;
 }
@@ -209,15 +213,27 @@ th {
     margin: 0 0 0 5px;
 }
 
-.add-item-form input, .add-item-form select {
-    background-color: inherit;
-    color: white;
+.add-item-form input,
+.add-item-form select {
+    background-color: #ffffff;
+    color: #111111;
     border: none;
     border: 1px solid #555555;
     border-radius: 3px;
     padding: 3px 10px;
     margin: 5px 0 10px;
     outline: none;
+}
+
+.add-item-form textarea {
+    padding: 5px 10px;
+}
+
+.add-item-form input[type="submit"] {
+    margin: 20px 0 5px;
+    color: #111111;
+    font-weight: 700;
+    letter-spacing: 0.3em;
 }
 
 /* https://loading.io/css/ */
