@@ -8,6 +8,7 @@ import {
     getUserPlants,
     addUserPlant,
     updateUserPlant,
+    removeUserPlant,
 } from "../models/plantsModel.mjs";
 
 export function getPlants(app) {
@@ -32,4 +33,10 @@ export async function updateItem(app, data) {
     logMessage("updateItem");
 
     return await updateUserPlant(app, data);
+}
+
+export async function removeItem(app, data) {
+    logMessage("removeItem");
+
+    return await removeUserPlant(app, data);
 }

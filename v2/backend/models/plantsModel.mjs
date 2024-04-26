@@ -97,3 +97,36 @@ export async function updateUserPlant(app, data) {
     const doc = app.firebase.doc(app.firebase.db, "plants", data.id);
     return await app.firebase.setDoc(doc, item);
 }
+
+export async function removeUserPlant(app, data) {
+    logMessage("removeUserPlant");
+
+    const newItem = {
+        end_time: data.end_time,
+        flower_duration: data.flower_duration,
+        name: data.name,
+        notes: data.notes,
+        start_time: data.start_time,
+        type: data.type,
+        veg_to_flower: data.veg_to_flower,
+        user_id: app.user.uid,
+    };
+
+    const docRef = await app.firebase.addDoc(
+        app.firebase.collection(app.firebase.db, "removed_plants"),
+        newItem
+    );
+
+    logMessage(
+        "removeUserPlant",
+        `added to removed_plants; doc id: ${docRef.id}`
+    );
+
+    await app.firebase.deleteDoc(
+        app.firebase.doc(app.firebase.db, "plants", data.id)
+    );
+
+    logMessage("removeUserPlant", "removed from plants");
+
+    return;
+}

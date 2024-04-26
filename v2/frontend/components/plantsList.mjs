@@ -1,3 +1,4 @@
+import { removeItem } from "../../backend/controllers/plantsController.mjs";
 import { logMessage } from "../../utils/log.mjs";
 import { editItemModal } from "./editItemModal.mjs";
 
@@ -99,10 +100,23 @@ function addRowToTable(app, table, data, cellType) {
         options.appendChild(deleteBtn);
     }
 
-    editBtn.addEventListener("click", (event) => {
+    editBtn.addEventListener("click", async(event) => {
+        // stop refresh
         event.preventDefault();
 
         editItemModal(app, data);
+    });
+
+    deleteBtn.addEventListener("click", async (event) => {
+        // stop refresh
+        event.preventDefault();
+
+        if (window.confirm(`Are you sure you want to delete '${data.name}' permanently?`)) {
+            await removeItem(app, data);
+
+            // refresh plants list
+            window.location.reload();
+        }
     });
 
     row.append(

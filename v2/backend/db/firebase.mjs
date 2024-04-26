@@ -24,6 +24,7 @@ import {
     getDoc,
     setDoc,
     getDocs,
+    deleteDoc,
     collection,
     getFirestore,
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
@@ -66,6 +67,7 @@ export function initFirebase() {
         setDoc,
         getDocs,
         provider,
+        deleteDoc,
         collection,
         getRedirectResult,
         signInWithRedirect,
