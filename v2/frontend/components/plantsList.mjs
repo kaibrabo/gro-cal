@@ -1,6 +1,7 @@
 import { removeItem } from "../../backend/controllers/plantsController.mjs";
 import { logMessage } from "../../utils/log.mjs";
 import { editItemModal } from "./editItemModal.mjs";
+import { displayAddItemModal } from "../../backend/controllers/plantsController.mjs";
 
 export function plantsList(app) {
     logMessage("plantsList");
@@ -23,11 +24,22 @@ export function plantsList(app) {
     plantsTitle.textContent = "Plants";
     mainContentInnerContainer.appendChild(plantsTitle);
 
+    // Add Plants
+    const addPlantButton = document.createElement("button");
+    addPlantButton.id = "add-item-btn";
+    addPlantButton.textContent = "Add";
+    addPlantButton.addEventListener("click", () => displayAddItemModal(app));
+
+    const plantListHeader = document.createElement("div");
+    plantListHeader.id = "plant-list-header";
+    plantListHeader.appendChild(plantsTitle)
+    plantListHeader.appendChild(addPlantButton)
+    
     // Plants Section
     const plantsTableContainer = document.createElement("table");
     const plantsTableHead = document.createElement("thead");
     const plantsTableBody = document.createElement("tbody");
-
+    
     // add labels to table head
     const LABELS = {
         name: "Name",
@@ -38,21 +50,22 @@ export function plantsList(app) {
         end_time: "End",
         notes: "Notes",
     };
-
+    
     addRowToTable(app, plantsTableHead, LABELS, "th");
-
+    
     // add head labels to table
     plantsTableContainer.appendChild(plantsTableHead);
-
+    
     // add each plant to body
     for (let plant of app.user.plants) {
         addRowToTable(app, plantsTableBody, plant, "td");
     }
-
+    
     // add tbody to table
     plantsTableContainer.appendChild(plantsTableBody);
-
+    
     // add table to main content
+    mainContentInnerContainer.appendChild(plantListHeader);
     mainContentInnerContainer.appendChild(plantsTableContainer);
 }
 
@@ -68,13 +81,13 @@ function addRowToTable(app, table, data, cellType) {
     let vegToFlower = document.createElement(cellType);
     let flowerDuration = document.createElement(cellType);
 
-    name.append(data.name);
     type.append(data.type);
-    notes.append(data.notes);
     endTime.append(data.end_time);
     startTime.append(data.start_time);
     vegToFlower.append(data.veg_to_flower);
     flowerDuration.append(data.flower_duration);
+    notes.append(`${data.notes.length > 20 ? (data.notes.slice(0, 20) + "...") : data.notes}`);
+    name.append(`${data.name.length > 13 ? (data.name.slice(0, 13) + "...") : data.name}`);
 
     let options = null;
 

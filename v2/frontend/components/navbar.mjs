@@ -1,6 +1,5 @@
 import { logMessage } from "../../utils/log.mjs";
 import { loginUser } from "../../backend/controllers/userController.mjs";
-import { displayAddItemModal } from "../../backend/controllers/plantsController.mjs";
 
 export function navbar(app) {
     logMessage("navbar");
@@ -11,11 +10,11 @@ export function navbar(app) {
     const userIcon = document.getElementById("user-icon");
     const userName = document.getElementById("user-name");
     const userEmail = document.getElementById("user-email");
-    const addItem = document.getElementById("add-item-btn");
 
     // set textcontent based on user
     login.textContent = app.user ? "logout" : "login";
     userIcon.textContent = app.user ? "account_circle" : "";
+    userIcon.title = app.user ? `${app.user.displayName}\n${app.user.email}` : "";
     userName.textContent = app.user ? app.user.displayName : "LOGIN";
     userEmail.textContent = app.user ? app.user.email : "";
 
@@ -23,6 +22,4 @@ export function navbar(app) {
     logo.addEventListener("click", () => location.reload(true));
 
     login.addEventListener("click", () => loginUser(app));
-
-    addItem.addEventListener("click", () => displayAddItemModal(app));
 }

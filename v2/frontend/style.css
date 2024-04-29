@@ -6,29 +6,34 @@
 html {
     margin: 0;
     padding: 0;
+    height: 100%;
 }
 
 body {
     background-color: black;
     color: white;
     letter-spacing: 0.1em;
+    font-size: 12px;
+    height: 100vh;
 }
 
 main#container {
-    display: flex;
     width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
-
+ 
 nav {
     border-right: 1px solid rgba(255, 255, 255, 0.3);
 
-    width: 300px;
-    height: 100dvh;
+    width: 100%;
+    height: 80px;
     padding: 16px;
     box-sizing: border-box; /* Ensure padding doesn't add to the height */
 
     display: flex;
-    flex-direction: column;
     justify-content: space-between;
     align-items: center;
 }
@@ -50,10 +55,8 @@ nav {
 
 #user-login {
     display: flex;
-    justify-content: space-between;
-    width: 100%;
-    height: 50px;
-    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    width: 270px;
+    height: 100%;
 }
 
 #nav-img {
@@ -88,8 +91,8 @@ nav {
 }
 
 #login {
-    margin: auto 0 auto auto;
-    /* padding: 6px 16px; */
+    margin: auto 0 auto;
+    padding: 6px 16px;
     border-radius: 5px;
     border: none;
     cursor: pointer;
@@ -98,6 +101,7 @@ nav {
 #main-content {
     box-sizing: border-box;
     width: 100%;
+    max-height: 100%;
 }
 
 #main-content-loading {
@@ -110,10 +114,20 @@ nav {
 
 #main-content-inner {
     padding: 48px;
+    height: auto;
 }
 
-#main-content-inner h1 {
+#main-content-inner h2 {
     margin: 0 0 8px 0;
+    font-size: 24px;
+    padding: 7px 0 0 0;
+}
+
+#plant-list-header {
+    width: 100%;
+    height: 40px;
+    display: flex;
+    justify-content: space-between;
 }
 
 table {
@@ -150,6 +164,10 @@ td#row-options span {
     cursor: pointer;
 }
 
+tbody {
+    overflow-y: auto;
+}
+
 tbody tr {
     border-bottom: 1px solid #dddddd;
     width: 100%;
@@ -183,6 +201,7 @@ th {
     border: none;
     width: 143px;
     height: 24px;
+    margin: auto 0 auto auto;
 }
 
 .modal {
@@ -202,6 +221,7 @@ th {
     background: #222222;
     padding: 20px;
     border-radius: 6px;
+    height: 500px;
 }
 
 .add-item-form {
@@ -234,6 +254,20 @@ th {
     color: #111111;
     font-weight: 700;
     letter-spacing: 0.3em;
+} 
+
+
+footer {
+    width: 80%;
+    height: 50px;
+    margin: 20px auto 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+#discord-link {
+    text-decoration: none;
+    color: whitesmoke;
 }
 
 /* https://loading.io/css/ */
@@ -320,5 +354,37 @@ th {
     }
     100% {
         transform: rotate(360deg);
+    }
+}
+
+/* Varying Screen Sizes */
+@media (max-width: 430px) {
+    nav {
+        border: none;
+    }
+
+    #nav-user-info {
+        display: none;
+    }
+    
+    #nav-img {
+        margin: auto 0;
+    }
+
+    #user-login {
+        justify-content: flex-end;
+    }
+
+    #main-content-inner {
+        padding: 1px;
+    }
+
+    #plant-list-header {
+        width: 80%;
+        margin: 0 auto;
+    }
+
+    table {
+        font-size: 10px;
     }
 }
