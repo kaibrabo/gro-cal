@@ -14,8 +14,7 @@ export function initUI(app) {
     // load components
     navbar(app);
 
-    if (app.user && app.user.plants) {
-        
+    if (app.user) {
         plantsList(app);
     }
     

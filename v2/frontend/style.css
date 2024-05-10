@@ -59,6 +59,11 @@ nav {
     height: 100%;
 }
 
+#login-label {
+    line-height: 38px;
+    cursor: pointer;
+}
+
 #nav-img {
     margin: auto;
     height: 32px;
@@ -149,6 +154,10 @@ td {
     text-align: left;
     padding: 12px 10px;
     font-size: 12px;
+}
+
+#notes-data:hover {
+    cursor: pointer;
 }
 
 #row-options {

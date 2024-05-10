@@ -10,16 +10,21 @@ export function navbar(app) {
     const userIcon = document.getElementById("user-icon");
     const userName = document.getElementById("user-name");
     const userEmail = document.getElementById("user-email");
+    const loginLabel = document.getElementById("login-label");
 
     // set textcontent based on user
     login.textContent = app.user ? "logout" : "login";
+    login.title = login.textContent;
     userIcon.textContent = app.user ? "account_circle" : "";
     userIcon.title = app.user ? `${app.user.displayName}\n${app.user.email}` : "";
-    userName.textContent = app.user ? app.user.displayName : "LOGIN";
+    userName.textContent = app.user ? app.user.displayName : "";
     userEmail.textContent = app.user ? app.user.email : "";
+    loginLabel.textContent = !app.user ? "Login" : ""
 
     // event handlers
     logo.addEventListener("click", () => location.reload(true));
+
+    loginLabel.addEventListener("click", () => loginUser(app));
 
     login.addEventListener("click", () => loginUser(app));
 }

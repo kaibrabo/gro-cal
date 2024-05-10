@@ -102,6 +102,9 @@ function addRowToTable(app, table, data, cellType) {
     if (cellType == "td") {
         row.id = data.id;
 
+        notes.title = data.notes;
+        notes.id = "notes-data"
+
         editBtn.classList.add("material-symbols-outlined");
         editBtn.textContent = "edit_note";
         deleteBtn.classList.add("material-symbols-outlined");
