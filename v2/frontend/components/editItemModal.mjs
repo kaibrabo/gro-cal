@@ -2,7 +2,6 @@
     Copyright © 2024 Blumelist / Kainoa Ubaldo-Brabo. All Rights Reserved.
 */
 
-// import { addItem } from "../../backend/controllers/plantsController.mjs";
 import { updateItem } from "../../backend/controllers/plantsController.mjs";
 import { logMessage } from "../../utils/log.mjs";
 

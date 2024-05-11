@@ -1,6 +1,7 @@
 /*
     Copyright © 2024 Blumelist / Kainoa Ubaldo-Brabo. All Rights Reserved.
 */
+
 import { logMessage } from "../../utils/log.mjs";
 import { checkOrCreateUserFirebase } from "../models/userModel.mjs";
 

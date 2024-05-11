@@ -1,3 +1,7 @@
+/*
+    Copyright © 2024 Blumelist / Kainoa Ubaldo-Brabo. All Rights Reserved.
+*/
+
 import { removeItem } from "../../backend/controllers/plantsController.mjs";
 import { logMessage } from "../../utils/log.mjs";
 import { editItemModal } from "./editItemModal.mjs";
