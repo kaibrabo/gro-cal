@@ -1,0 +1,399 @@
+/* 
+    Copyright © 2024 Blumelist / Kainoa Ubaldo-Brabo. All Rights Reserved. 
+*/
+
+*,
+html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+body {
+    background-color: black;
+    color: white;
+    letter-spacing: 0.1em;
+    font-size: 12px;
+    height: 100vh;
+}
+
+main#container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+ 
+nav {
+    border-right: 1px solid rgba(255, 255, 255, 0.3);
+
+    width: 100%;
+    height: 80px;
+    padding: 16px;
+    box-sizing: border-box; /* Ensure padding doesn't add to the height */
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#nav-content {
+    height: 100%;
+    margin: 20px 0 10px;
+}
+
+#logo {
+    margin: 0 20px;
+
+    font-family: "Courier New", Courier, monospace;
+    font-size: 20px;
+    letter-spacing: 2px;
+
+    cursor: pointer;
+}
+
+#user-login {
+    display: flex;
+    width: 270px;
+    height: 100%;
+}
+
+#login-label {
+    line-height: 38px;
+    cursor: pointer;
+}
+
+#nav-img {
+    margin: auto;
+    height: 32px;
+    width: 32px;
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+}
+
+#user-icon {
+    font-size: 30px;
+    cursor: pointer;
+}
+
+#nav-user-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#user-name {
+    font-size: 14px;
+    margin: 0;
+    text-align: left;
+}
+
+#user-email {
+    font-size: 12px;
+    margin: 0;
+}
+
+#login {
+    margin: auto 0 auto;
+    padding: 6px 16px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+#main-content {
+    box-sizing: border-box;
+    width: 100%;
+    max-height: 100%;
+}
+
+#main-content-loading {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#main-content-inner {
+    padding: 48px;
+    height: auto;
+}
+
+#main-content-inner h2 {
+    margin: 0 0 8px 0;
+    font-size: 24px;
+    padding: 7px 0 0 0;
+}
+
+#plant-list-header {
+    width: 100%;
+    height: 40px;
+    display: flex;
+    justify-content: space-between;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+thead {
+    background-color: #333;
+    color: #fff;
+    width: 100%;
+    border-left: 1px solid #555;
+}
+
+th,
+td {
+    text-align: left;
+    padding: 12px 10px;
+    font-size: 12px;
+}
+
+#notes-data:hover {
+    cursor: pointer;
+}
+
+#row-options {
+    width: 80px;
+}
+
+td#row-options {
+    display: flex;
+    justify-content: space-around;
+}
+
+td#row-options span {
+    cursor: pointer;
+}
+
+tbody {
+    overflow-y: auto;
+}
+
+tbody tr {
+    border-bottom: 1px solid #dddddd;
+    width: 100%;
+}
+
+tbody tr:nth-of-type(even) {
+    background-color: #202020;
+}
+
+tbody tr:last-of-type {
+    border-bottom: 2px solid #333;
+}
+
+tbody tr:hover {
+    background-color: #444;
+}
+
+th {
+    position: sticky;
+    top: 0;
+    border-right: 1px solid #555;
+}
+
+#add-item-btn {
+    cursor: pointer;
+    font-size: 14px;
+    color: white;
+    background: #555555;
+    padding: 4px 12px;
+    border-radius: 6px;
+    border: none;
+    width: 143px;
+    height: 24px;
+    margin: auto 0 auto auto;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #222222;
+    padding: 20px;
+    border-radius: 6px;
+    height: 500px;
+}
+
+.add-item-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.add-item-form label {
+    margin: 0 0 0 5px;
+}
+
+.add-item-form input,
+.add-item-form select {
+    background-color: #ffffff;
+    color: #111111;
+    border: none;
+    border: 1px solid #555555;
+    border-radius: 3px;
+    padding: 3px 10px;
+    margin: 5px 0 10px;
+    outline: none;
+}
+
+.add-item-form textarea {
+    padding: 5px 10px;
+}
+
+.add-item-form input[type="submit"] {
+    margin: 20px 0 5px;
+    color: #111111;
+    font-weight: 700;
+    letter-spacing: 0.3em;
+} 
+
+
+footer {
+    width: 80%;
+    height: 50px;
+    margin: 20px auto 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+#discord-link {
+    text-decoration: none;
+    color: whitesmoke;
+}
+
+/* https://loading.io/css/ */
+.lds-roller {
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 80px;
+    margin: 0 auto;
+}
+.lds-roller div {
+    animation: lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    transform-origin: 40px 40px;
+}
+.lds-roller div:after {
+    content: " ";
+    display: block;
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #fff;
+    margin: -4px 0 0 -4px;
+}
+.lds-roller div:nth-child(1) {
+    animation-delay: -0.036s;
+}
+.lds-roller div:nth-child(1):after {
+    top: 63px;
+    left: 63px;
+}
+.lds-roller div:nth-child(2) {
+    animation-delay: -0.072s;
+}
+.lds-roller div:nth-child(2):after {
+    top: 68px;
+    left: 56px;
+}
+.lds-roller div:nth-child(3) {
+    animation-delay: -0.108s;
+}
+.lds-roller div:nth-child(3):after {
+    top: 71px;
+    left: 48px;
+}
+.lds-roller div:nth-child(4) {
+    animation-delay: -0.144s;
+}
+.lds-roller div:nth-child(4):after {
+    top: 72px;
+    left: 40px;
+}
+.lds-roller div:nth-child(5) {
+    animation-delay: -0.18s;
+}
+.lds-roller div:nth-child(5):after {
+    top: 71px;
+    left: 32px;
+}
+.lds-roller div:nth-child(6) {
+    animation-delay: -0.216s;
+}
+.lds-roller div:nth-child(6):after {
+    top: 68px;
+    left: 24px;
+}
+.lds-roller div:nth-child(7) {
+    animation-delay: -0.252s;
+}
+.lds-roller div:nth-child(7):after {
+    top: 63px;
+    left: 17px;
+}
+.lds-roller div:nth-child(8) {
+    animation-delay: -0.288s;
+}
+.lds-roller div:nth-child(8):after {
+    top: 56px;
+    left: 12px;
+}
+@keyframes lds-roller {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Varying Screen Sizes */
+@media (max-width: 430px) {
+    nav {
+        border: none;
+    }
+
+    #nav-user-info {
+        display: none;
+    }
+    
+    #nav-img {
+        margin: auto 0;
+    }
+
+    #user-login {
+        justify-content: flex-end;
+    }
+
+    #main-content-inner {
+        padding: 1px;
+    }
+
+    #plant-list-header {
+        width: 80%;
+        margin: 0 auto;
+    }
+
+    table {
+        font-size: 10px;
+    }
+}
