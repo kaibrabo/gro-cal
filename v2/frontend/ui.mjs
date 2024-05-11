@@ -8,9 +8,6 @@ import { plantsList } from "./components/plantsList.mjs";
 export function initUI(app) {
     logMessage("initUI");
     
-    // DELETE for production
-    console.log(app);
-
     // load components
     navbar(app);
 
