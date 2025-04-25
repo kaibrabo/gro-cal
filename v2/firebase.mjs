@@ -2,10 +2,8 @@
     Copyright © 2024 Blumelist / Kainoa Ubaldo-Brabo. All Rights Reserved.
 */
 
-import { logMessage } from "../../utils/log.mjs";
-
 // APP
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { initializeApp } from "firebase/app";
 
 // AUTHENTICATION
 import {
@@ -13,7 +11,7 @@ import {
     getRedirectResult,
     signInWithRedirect,
     GoogleAuthProvider,
-} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+} from "firebase/auth";
 
 // FIRESTORE DATABASE
 import {
@@ -27,14 +25,14 @@ import {
     deleteDoc,
     collection,
     getFirestore,
-} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+} from "firebase/firestore";
 
 /**
  * Initializes Firebase configuration
  * @returns {(object)}
  */
 export function initFirebase() {
-    logMessage("initFirebase");
+    console.log("initFirebase");
 
     const firebaseConfig = {
         apiKey: "AIzaSyBz9S9iDJXvGIpkjQPVo14jV5lpPovwqwM",
@@ -57,19 +55,21 @@ export function initFirebase() {
     const db = getFirestore(app);
 
     return {
-        db,
-        doc,
-        auth,
-        query,
-        where,
         addDoc,
-        getDoc,
-        setDoc,
-        getDocs,
-        provider,
-        deleteDoc,
+        app,
+        auth,
         collection,
+        db,
+        deleteDoc,
+        doc,
+        getDoc,
+        getDocs,
         getRedirectResult,
+        GoogleAuthProvider,
+        provider,
+        query,
+        setDoc,
         signInWithRedirect,
+        where,
     };
 }

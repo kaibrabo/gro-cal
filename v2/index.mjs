@@ -1,47 +1,45 @@
 /*
     Copyright © 2024 Blumelist / Kainoa Ubaldo-Brabo. All Rights Reserved.
 */
+// NODE
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 
-import { logMessage } from "./utils/log.mjs";
-import { initUI } from "./frontend/ui.mjs";
-import { initFirebase } from "./backend/db/firebase.mjs";
-import { authCheck } from "./backend/controllers/userController.mjs";
-import { getPlants } from "./backend/controllers/plantsController.mjs";
+// API's
+import express from "express";
 
-// global app data
-// (need to figure out something better)
-const app = {
-    user: null,
-    firebase: null,
-};
+// Routing
+const app = express();
+const port = 8080;
 
-// RUNS THE PROGRAM
-main();
+// directory of current module
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+// access /public
+app.use(express.static(__dirname + '/public'));
+
+app.get("/", (_req, res) => {
+    res.sendFile(path.join(__dirname, "./public/index.html"));
+});
+
+app.listen(port, () => main());
+
+
+// import { initFirebase } from "./firebase.mjs";
+// import Auth from "./features/Auth.mjs";
 
 async function main() {
-    // load firestore
-    app.firebase = !app.firebase ? initFirebase() : null;
+    console.log("App starting...");
 
-    if (!app.firebase) {
-        logMessage("main", "firebase not loaded");
-        return;
-    }
+    // // Initialize Firebase
+    // const firebase = initFirebase();
 
-    // persist authenticated user
-    app.firebase.auth.onAuthStateChanged(async (user) => {
-        if (!user) {
-            app.user = null;
-            app.userRef = null;
-            logMessage("main", "no user");
-        } else {
-            app.user = user;
-            app.userRef = await authCheck(app);
-            app.user.plants = await getPlants(app);
-        }
+    // // Auth
+    // const auth = new Auth();
+    
+    // auth.login();
 
-        // display UI
-        initUI(app);
-    });
-
-    logMessage("main loaded");
+    console.log("App initialized successfully.");
 }
+
+// main();
