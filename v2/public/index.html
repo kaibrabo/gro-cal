@@ -4,46 +4,109 @@
 
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Blumelist</title>
 
-        <link rel="stylesheet" href="./style.css" />
-        
-        <!-- ICONS -->
-        <link rel="shortcut icon" href="./blumelist-icon-v1.ico">
-    </head>
-    <body>
-        <main id="container">
-            <nav>
-                <h3 id="logo">Blumelist</h3>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blumelist</title>
 
-                <div id="nav-content"></div>
+    <link rel="stylesheet" href="./css/style.css" />
 
-                <div id="user-login">
-                    <span id="login" class="button-style">
-                        Login
-                    </span>
+    <!-- ICONS -->
+    <link rel="shortcut icon" href="./blumelist-icon-v1.ico">
+</head>
+
+<body>
+    <main id="container">
+        <nav>
+            <h3 id="logo">Blumelist</h3>
+
+            <div id="nav-content"></div>
+
+            <div id="user-login">
+                <span id="login" class="button-style">
+                    Login
+                </span>
+            </div>
+        </nav>
+
+        <section>
+            <h2 class="section-title">Why Blumelist?</h2>
+            <ul>
+                <li>🌱 Add plants with strain, type, and growth dates</li>
+                <li>🗓️ Auto-calculate harvest based on flowering period</li>
+                <li>🔄 Keep a complete history of finished grows</li>
+                <li>📱 Access your grow log anywhere</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2 class="section-title">Pricing</h2>
+            <div class="pricing-table">
+                <div class="plan">
+                    <h3>🌿 Free</h3>
+                    <p class="price">$0/month</p>
+                    <ul>
+                        <li>2 active plants</li>
+                        <li>Unlimited finished plants</li>
+                    </ul>
                 </div>
-            </nav>
-
-            <section id="dashboard">
-                <div class="dashboard-title">Dashboard</div>
-
-                <div class="dashboard-add">Add</div>
-
-                <div class="dashboard-main">
-                    <div id="loading">Loading...</div>
+                <div class="plan">
+                    <h3>🌾 Grower</h3>
+                    <p class="price">$5.99/month</p>
+                    <ul>
+                        <li>10 active plants</li>
+                        <li>Unlimited finished plants</li>
+                    </ul>
                 </div>
-            </section>
+                <div class="plan">
+                    <h3>🌳 Pro</h3>
+                    <p class="price">$10/month</p>
+                    <ul>
+                        <li>Unlimited active plants</li>
+                        <li>Unlimited finished plants</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
 
-            <footer>
-                <p>Copyright Blumelist 2020-2024 - All Rights Reserved</p>
-                <p>Contact - 
-                    <a id="discord-link" href="https://discord.gg/HrZuAJgqBT" target="_blank">Blumelist Discord</a>
-                </p>
-            </footer>
-        </main>
-    </body>
+        <section class="faq">
+            <h2 class="section-title">FAQs</h2>
+            <div class="faq-item">
+                <h4>How is the end date calculated?</h4>
+                <p>You input your plant's flip date and flowering duration. Blumelist does the math and gives you an
+                    estimated harvest date.</p>
+            </div>
+            <div class="faq-item">
+                <h4>What counts as an "active" plant?</h4>
+                <p>Any plant that hasn’t been marked as finished or harvested is considered active.</p>
+            </div>
+            <div class="faq-item">
+                <h4>Is there a mobile app?</h4>
+                <p>Blumelist is a responsive web app — you can access it on any device with a browser.</p>
+            </div>
+        </section>
+
+        <!-- <section id="dashboard">
+            <div class="dashboard-title">Dashboard</div>
+
+            <div class="dashboard-add">Add</div>
+
+            <div class="dashboard-main">
+                <div id="loading">Loading...</div>
+            </div>
+        </section> -->
+
+        <footer>
+            <p>Copyright Blumelist 2020-2024 - All Rights Reserved</p>
+            <p>Contact -
+                <a id="discord-link" href="https://discord.gg/HrZuAJgqBT" target="_blank">Blumelist Discord</a>
+            </p>
+        </footer>
+    </main>
+
+    <!-- Scripts -->
+    <script src="./js/BlumeListUI.mjs" defer></script>
+</body>
+
 </html>

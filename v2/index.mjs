@@ -7,6 +7,7 @@ import { fileURLToPath } from "node:url";
 
 // API's
 import express from "express";
+import { initFirebase } from "./firebase.mjs";
 
 // Routing
 const app = express();
@@ -24,22 +25,11 @@ app.get("/", (_req, res) => {
 
 app.listen(port, () => main());
 
-
-// import { initFirebase } from "./firebase.mjs";
-// import Auth from "./features/Auth.mjs";
-
 async function main() {
     console.log("App starting...");
 
-    // // Initialize Firebase
-    // const firebase = initFirebase();
-
-    // // Auth
-    // const auth = new Auth();
-    
-    // auth.login();
+    // Initialize Firebase for Auth, DB
+    const firebase = initFirebase();
 
     console.log("App initialized successfully.");
 }
-
-// main();
