@@ -19,6 +19,11 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 // access /public
 app.use(express.static(__dirname + '/public'));
 
+// routes
+app.get("/login", (_req, res) => {
+    res.sendFile(path.join(__dirname, "./public/login.html"));
+});
+
 app.get("/", (_req, res) => {
     res.sendFile(path.join(__dirname, "./index.html"));
 });
@@ -29,7 +34,7 @@ async function main() {
     console.log("App starting...");
 
     // Initialize Firebase for Auth, DB
-    const firebase = initFirebase();
+    initFirebase();
 
     console.log("App initialized successfully.");
 }
