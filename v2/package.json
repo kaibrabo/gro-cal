@@ -2,9 +2,9 @@
   "name": "v2",
   "version": "1.0.0",
   "description": "A Node.js app for Blumelist",
-  "main": "index.mjs",
+  "main": "express-server.mjs",
   "scripts": {
-    "start": "node index.mjs"
+    "start": "node express-server.mjs"
   },
   "keywords": [],
   "author": "Kainoa Ubaldo-Brabo",

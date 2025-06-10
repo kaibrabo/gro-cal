@@ -20,6 +20,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 app.use(express.static(__dirname + '/public'));
 
 // routes
+// note: add route to firebase.json > "rewrites"
 app.get("/signup", (_req, res) => {
     res.sendFile(path.join(__dirname, "./public/signup.html"));
 });
@@ -32,6 +33,7 @@ app.get("/", (_req, res) => {
     res.sendFile(path.join(__dirname, "./index.html"));
 });
 
+// app entry
 app.listen(port, () => main());
 
 async function main() {
