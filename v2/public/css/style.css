@@ -1,5 +1,5 @@
 /* 
-    Copyright © 2024 Blumelist / Kainoa Ubaldo-Brabo. All Rights Reserved. 
+    Copyright © Blumelist / Kainoa Ubaldo-Brabo. All Rights Reserved. 
 */
 
 * {
@@ -22,6 +22,7 @@ body {
 
 main#container {
     width: 100%;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: space-between;

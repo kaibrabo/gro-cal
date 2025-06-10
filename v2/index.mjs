@@ -1,5 +1,5 @@
 /*
-    Copyright © 2024 Blumelist / Kainoa Ubaldo-Brabo. All Rights Reserved.
+    Copyright © Blumelist / Kainoa Ubaldo-Brabo. All Rights Reserved.
 */
 // NODE
 import path from "node:path";
@@ -20,6 +20,10 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 app.use(express.static(__dirname + '/public'));
 
 // routes
+app.get("/signup", (_req, res) => {
+    res.sendFile(path.join(__dirname, "./public/signup.html"));
+});
+
 app.get("/login", (_req, res) => {
     res.sendFile(path.join(__dirname, "./public/login.html"));
 });

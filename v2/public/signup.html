@@ -19,27 +19,26 @@
             <h3 id="logo">Blumelist</h3>
 
             <div class="container form">
-                <label for="uname"><b>Username</b></label>
+                <label for="uname"><b>New Username</b></label>
                 <input type="text" placeholder="user@email.com" name="uname" required>
 
-                <label for="psw"><b>Password</b></label>
+                <label for="psw"><b>New Password</b></label>
                 <input type="password" placeholder="********" name="psw" required>
 
-                <button type="submit">Login</button>
-                <label>
-                    <input type="checkbox" checked="checked" name="remember"> Remember me
-                </label>
+                <label for="mpsw"><b>Re-Enter Password</b></label>
+                <input type="password" placeholder="********" name="mpsw" required>
+
+                <button type="submit">Sign Up</button>
             </div>
 
             <div class="container buttons">
-                <button type="button" class="cancelbtn" id="loginCancelBtn">Cancel</button>
-                <span class="psw"><a href="#">Forgot password?</a></span>
-                <span class="newuser">New User? <a href="/signup">Sign Up</a></span>
+                <button type="button" class="cancelbtn" id="signUpCancelBtn">Cancel</button>
+                <span class="login">Already a user? <a href="/login">Login</a></span>
             </div>
         </form>
     </main>
 
-    <script src="./js/login.js"></script>
+    <script src="./js/signup.js"></script>
 </body>
 
 </html>
